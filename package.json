@@ -1,0 +1,31 @@
+{
+  "name": "fumi",
+  "version": "0.0.1",
+  "private": true,
+  "exports": {
+    ".": {
+      "import": "./dist/vite.js",
+      "types": "./dist/vite.d.ts"
+    },
+    "./volar": {
+      "require": "./dist/volar.js",
+      "types": "./dist/volar.d.ts"
+    }
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "catalog": {
+    "@types/bun": "latest",
+    "tsdown": "^0.21.7",
+    "type-fest": "^5.5.0"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "bundle": "tsdown"
+  },
+  "devDependencies": {
+    "tsdown": "catalog:",
+    "vitest": "^3.0.0"
+  }
+}
