@@ -27,6 +27,20 @@ import { matchType } from "./utils/matchType";
 
 const EXTRA_ARGS_REGEX = /(?:^|,\s*)(:?)(\w+)=(?:"([^"]*)"|'([^']*)'|(\$[^\s,]+)|(`([^`]+)`))/g;
 
+const BOOLEAN_DIRECTIVES = ["v-cloak", "v-pre", "v-once"] as const;
+
+function getDirectiveExpression(
+    directiveName: string,
+    expr: Expression | undefined,
+): string | true {
+    const isBoolean = BOOLEAN_DIRECTIVES.includes(directiveName as typeof BOOLEAN_DIRECTIVES[number]);
+    return isBoolean && !expr ? true : (expr?.content ?? true);
+}
+
+function getExpressionContent(expr: Expression | undefined): string | true {
+    return expr?.content ?? true;
+}
+
 export function parseExpression(expr: string, startOffset: number): Expression {
     const variables: VariableRef[] = [];
     const extras: Record<string, string> = {};
@@ -709,11 +723,7 @@ export function applyDirective(
     const meaningfulChildren = children.filter((c) => isMeaningful(c));
     if (!meaningfulChildren.length) return null;
 
-    const booleanDirectives = ["v-cloak", "v-pre", "v-once"];
-    const isBoolean = booleanDirectives.includes(directiveName);
-    const expression = isBoolean && !directiveNode.expression
-        ? true
-        : (directiveNode.expression?.content ?? true);
+    const expression = getDirectiveExpression(directiveName, directiveNode.expression);
 
     // Transform children first
     const transformedChildren = children.flatMap((c) => {
@@ -812,8 +822,7 @@ export function transformIf(
 
     let currentChildren: Node[] = [];
     let currentType: "if" | "else" | "else-if" = "if";
-    let currentExpr: string | true =
-        node.expression?.content ?? true;
+    let currentExpr: string | true = getExpressionContent(node.expression);
     let currentDirNode: DirectiveNode = node;
 
     for (const child of node.children) {
@@ -829,7 +838,7 @@ export function transformIf(
             });
             currentChildren = [];
             currentType = child.name;
-            currentExpr = child.expression?.content ?? true;
+            currentExpr = getExpressionContent(child.expression);
             currentDirNode = child;
         } else {
             const transformed = transformNode(child);
