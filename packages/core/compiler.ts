@@ -19,89 +19,122 @@ import type {
     Stack,
     PosObj,
     Position,
-    SourcePosition,
-    CodeType,
     SourceSpans,
     TransformedNode,
 } from "./types";
 import { FLAVOR_ENUM } from "./enums/flavor";
 import { matchType } from "./utils/matchType";
 
+const EXTRA_ARGS_REGEX = /(?:^|,\s*)(:?)(\w+)=(?:"([^"]*)"|'([^']*)'|(\$[^\s,]+)|(`([^`]+)`))/g;
+
 export function parseExpression(expr: string, startOffset: number): Expression {
     const variables: VariableRef[] = [];
     const extras: Record<string, string> = {};
 
-    const extraArgsRegex = /(?:^|,\s*)(:?)(\w+)=(?:"([^"]*)"|'([^']*)'|(\$[^\s,]+)|(`([^`]+)`))/g;
     let match;
-    while ((match = extraArgsRegex.exec(expr)) !== null) {
+    while ((match = EXTRA_ARGS_REGEX.exec(expr)) !== null) {
         const [, colonPrefix, argName, doubleQuoteVal, singleQuoteVal, varRef, backtickVal] = match;
         let rawValue = doubleQuoteVal ?? singleQuoteVal ?? varRef ?? backtickVal ?? '';
         if (rawValue.startsWith('`') && rawValue.endsWith('`')) {
             rawValue = rawValue.slice(1, -1);
         }
-        // Use prefix in key so static and dynamic extras are distinct
         extras[colonPrefix + argName] = rawValue;
     }
 
-    let cleanExpr = expr.replace(/(?:^|,\s*):?(\w+)=(?:"[^"]*"|'[^']*'|(\$[^\s,]+)|(`[^`]+`))/g, '').trim();
-    cleanExpr = cleanExpr.replace(/,\s*,/g, ',').replace(/,\s*$/, '').trim();
+    const codes = toCharCodes(expr);
+    const len = codes.length;
 
-    const inMatch = cleanExpr.match(
-        /^\s*(?:\(\s*([^)]+)\s*\)|(\w+))\s+in\s+(.+)$/,
-    );
-    if (inMatch) {
-        const destructured = inMatch[1];
-        const single = inMatch[2];
-        const source = inMatch[3].trim();
+    let wordStart = -1;
+    let parenDepth = 0;
+    let hasSeenIn = false;
+    let inQuote = 0;
+    let currentWord = '';
 
-if (destructured) {
-            let searchStart = 0;
-            for (const part of destructured.split(",")) {
-                const name = part.trim();
-                const idx = destructured.indexOf(name, searchStart);
-                if (idx !== -1) {
-                    const varStart = startOffset + cleanExpr.indexOf("(") + 1 + idx;
-                    variables.push({
-                        name,
-                        pos: {
-                            start: varStart,
-                            end: varStart + name.length,
-                        },
-                        kind: "destructured",
-                    });
-                    searchStart = idx + name.length;
-                }
-            }
-        } else if (single) {
-            const singleMatch = cleanExpr.match(/^\s*(\w+)/);
-            const varStart = singleMatch
-                ? startOffset + cleanExpr.indexOf(singleMatch[1])
-                : startOffset;
+    function flushWord(start: number, end: number, kind: VariableRef['kind']) {
+        if (end > start) {
+            const word = expr.slice(start, end);
             variables.push({
-                name: single,
-                pos: { start: varStart, end: varStart + single.length },
-                kind: "destructured",
+                name: word,
+                pos: { start: startOffset + start, end: startOffset + end },
+                kind,
             });
         }
-
-        const sourceStart = startOffset + cleanExpr.lastIndexOf(source);
-        variables.push({
-            name: source,
-            pos: { start: sourceStart, end: sourceStart + source.length },
-            kind: "source",
-        });
-    } else {
-        const trimmed = cleanExpr.trim();
-        const trimOffset = expr.indexOf(trimmed);
-        const exprStart = startOffset + trimOffset;
-        variables.push({
-            name: trimmed,
-            pos: { start: exprStart, end: exprStart + trimmed.length },
-            kind: "standalone",
-        });
     }
 
-    return { content: cleanExpr, variables, extras, pos: { start: startOffset, end: startOffset + cleanExpr.length } };
+    for (let i = 0; i <= len; i++) {
+        const c = i < len ? codes[i] : 0;
+
+        if (inQuote) {
+            if (c === inQuote) {
+                inQuote = 0;
+            }
+            continue;
+        }
+
+        if (c === CHAR_CODES_ENUM.DoubleQuote || c === CHAR_CODES_ENUM.SingleQuote) {
+            inQuote = c;
+            continue;
+        }
+
+        if (c === CHAR_CODES_ENUM.LeftParen) {
+            if (wordStart !== -1) {
+                parenDepth++;
+            }
+            continue;
+        }
+
+        if (c === CHAR_CODES_ENUM.RightParen) {
+            if (parenDepth > 0) {
+                parenDepth--;
+            }
+            continue;
+        }
+
+        const isWordChar = (c >= CHAR_CODES_ENUM.LowerA && c <= CHAR_CODES_ENUM.LowerZ) ||
+                        (c >= CHAR_CODES_ENUM.UpperA && c <= CHAR_CODES_ENUM.UpperZ) ||
+                        (c >= CHAR_CODES_ENUM.Zero && c <= CHAR_CODES_ENUM.Nine) ||
+                        c === CHAR_CODES_ENUM.Underscore ||
+                        c === CHAR_CODES_ENUM.Dollar;
+
+        if (isWordChar) {
+            if (wordStart === -1) {
+                wordStart = i;
+            }
+        } else if (wordStart !== -1) {
+            currentWord = expr.slice(wordStart, i);
+
+            if (currentWord === 'in' && parenDepth === 0) {
+                hasSeenIn = true;
+                flushWord(0, wordStart, 'destructured');
+            } else if (hasSeenIn) {
+                flushWord(wordStart, i, 'source');
+            }
+
+            wordStart = -1;
+            currentWord = '';
+        }
+    }
+
+    let cleanExpr = expr
+        .replace(/(?:^|,\s*):?(\w+)=(?:"[^"]*"|'[^']*'|(\$[^\s,]+)|(`[^`]+`))/g, '')
+        .replace(/,\s*,/g, ',')
+        .replace(/,\s*$/, '')
+        .trim();
+
+    let finalVars: VariableRef[];
+    if (hasSeenIn || variables.length > 0) {
+        finalVars = variables;
+    } else if (cleanExpr.length > 0) {
+        finalVars = [{
+            name: cleanExpr,
+            pos: { start: startOffset, end: startOffset + cleanExpr.length },
+            kind: 'standalone',
+        }];
+    } else {
+        finalVars = [];
+    }
+
+    return { content: cleanExpr, variables: finalVars, extras, pos: { start: startOffset, end: startOffset + cleanExpr.length } };
 }
 
 export function buildElementNode(
@@ -227,7 +260,7 @@ export function handleVariable(
         expression,
     );
 
-    (node as any).sourceSpans = {
+    node.sourceSpans = {
         full: { start: openStart, end: closeEnd },
         expression: {
             start: exprStart,
@@ -294,10 +327,7 @@ export function handleDirective(
         }
 
         if (!node) {
-            console.warn(
-                `Warning: unmatched directive end: ${name} at pos ${pos.value}`,
-            );
-            return;
+            throw new Error(`Unmatched directive end: ${name} at pos ${pos.value}`);
         }
 
         node.block = { start: node.pos.start, end: pos.value };
@@ -318,7 +348,7 @@ export function handleDirective(
                 expression,
                 [],
             );
-            (node as any).sourceSpans = {
+            node.sourceSpans = {
                 full: { start: openStart, end: pos.value },
                 name: {
                     start: actualStart,
@@ -340,9 +370,7 @@ export function handleDirective(
             } satisfies SourceSpans;
             parentIf.children.push(node);
         } catch {
-            console.warn(
-                `${name} without matching if at pos ${openStart}`,
-            );
+            throw new Error(`${name} without matching {#if} at pos ${openStart}`);
         }
         return;
     }
@@ -356,7 +384,7 @@ export function handleDirective(
         [],
     );
 
-    (node as any).sourceSpans = {
+    node.sourceSpans = {
         full: { start: openStart, end: pos.value },
         name: {
             start: actualStart,
@@ -525,15 +553,14 @@ function extractProps(
                 name: attrName,
                 value: attrValue,
             };
-            // Store source positions for prop mapping
-            (prop as any).namePos = {
+            prop.namePos = {
                 start: attrStart,
                 end: attrStart + attrName.length,
             };
             if (attrValueStart !== undefined) {
-                (prop as any).valuePos = {
+                prop.valuePos = {
                     start: attrValueStart,
-                    end: attrValueEnd,
+                    end: attrValueEnd!,
                 };
             }
             props.push(prop);
@@ -603,7 +630,7 @@ export function handleHTML(
             [],
         );
         node.selfClosing = true;
-        (node as any).sourceSpans = {
+        node.sourceSpans = {
             full: { start: openBracket, end: openEnd },
             tag: { start: nameStart, end: nameEnd },
         } satisfies Partial<SourceSpans>;
@@ -616,7 +643,7 @@ export function handleHTML(
             props,
             [],
         );
-        (node as any).sourceSpans = {
+        node.sourceSpans = {
             full: { start: openBracket, end: openEnd },
             tag: { start: nameStart, end: nameEnd },
         } satisfies Partial<SourceSpans>;
@@ -842,8 +869,7 @@ export function transformIf(
                     name: dirName,
                     expression: branch.expression,
                     pos: branch.dirNode.pos,
-                    sourceSpans: (branch.dirNode as any)
-                        .sourceSpans,
+                    sourceSpans: branch.dirNode.sourceSpans,
                 },
             } as TransformedNode);
         } else {
@@ -864,16 +890,17 @@ export function transformIf(
                 branch.children,
             ) as TransformedNode;
 
-            const branchSourceSpans = (branch.dirNode as any).sourceSpans;
+            const branchSourceSpans = branch.dirNode.sourceSpans;
             if (branchSourceSpans) {
-                (wrapper as any).sourceSpans = {
+                wrapper.sourceSpans = {
                     full: { start: branch.dirNode.pos.start, end: branch.dirNode.pos.end },
                     name: branchSourceSpans.name,
                     expression: branchSourceSpans.expression,
                 };
-                (wrapper as any).inlineDirective = {
+                wrapper.inlineDirective = {
                     name: dirName,
                     expression: branch.expression,
+                    pos: branch.dirNode.pos,
                     sourceSpans: branchSourceSpans,
                 };
             }
@@ -885,51 +912,48 @@ export function transformIf(
     return result;
 }
 
+function applyExtras(result: TransformedNode | null, nodeName: string, expression?: Expression): TransformedNode | null {
+    if (!result || result.type !== 'Element' || !expression) return result;
+    const extras = expression.extras || {};
+    const mapEntry = DIRECTIVE_MAP_ENUM[nodeName as keyof typeof DIRECTIVE_MAP_ENUM];
+    const allowed = [...(mapEntry?.extras as readonly string[] || [])] as string[];
+
+    const hasKey = 'key' in extras;
+    const hasMemo = 'memo' in extras;
+
+    const extraKeys = Object.keys(extras).filter(k => {
+        if (!allowed.includes(k)) return false;
+        if (k === ':key' && hasKey) return false;
+        if (k === ':memo' && hasMemo) return false;
+        return true;
+    });
+    if (!extraKeys.length) return result;
+
+    const extraProps: PropNode[] = extraKeys.map(name => {
+        let attrName: string;
+        if (name === 'memo' || name === ':memo') {
+            attrName = 'v-memo';
+        } else if (name === ':key') {
+            attrName = ':key';
+        } else {
+            attrName = name;
+        }
+
+        return {
+            type: 'Attribute' as const,
+            name: attrName,
+            value: extras[name],
+            namePos: { start: 0, end: 0 },
+            valuePos: { start: 0, end: 0 },
+        };
+    });
+
+    return { ...result, props: [...(result.props || []), ...extraProps] };
+}
+
 export function transformNode(
     node: Node,
 ): TransformedNode | TransformedNode[] {
-    function applyExtras(result: TransformedNode | null, nodeName: string, expression?: Expression): TransformedNode | null {
-        if (!result || result.type !== 'Element' || !expression) return result;
-        const extras = expression.extras || {};
-        const mapEntry = DIRECTIVE_MAP_ENUM[nodeName as keyof typeof DIRECTIVE_MAP_ENUM];
-        const allowed = [...(mapEntry?.extras as readonly string[] || [])] as string[];
-
-        // Handle key precedence: 'key' takes priority over ':key'
-        const hasKey = 'key' in extras;
-        const hasMemo = 'memo' in extras;
-
-        const extraKeys = Object.keys(extras).filter(k => {
-            if (!allowed.includes(k)) return false;
-            // Skip :key if key exists, skip :memo if memo exists
-            if (k === ':key' && hasKey) return false;
-            if (k === ':memo' && hasMemo) return false;
-            return true;
-        });
-        if (!extraKeys.length) return result;
-
-        const extraProps: PropNode[] = extraKeys.map(name => {
-            // 'memo'/:memo' -> v-memo, ':key' -> :key, 'key' -> key
-            let attrName: string;
-            if (name === 'memo' || name === ':memo') {
-                attrName = 'v-memo';
-            } else if (name === ':key') {
-                attrName = ':key';
-            } else {
-                attrName = name;
-            }
-
-            return {
-                type: 'Attribute' as const,
-                name: attrName,
-                value: extras[name],
-                namePos: { start: 0, end: 0 },
-                valuePos: { start: 0, end: 0 },
-            };
-        });
-
-        return { ...result, props: [...(result.props || []), ...extraProps] };
-    }
-
     if (node.type === "Directive") {
         switch (node.name) {
             case "if":
@@ -937,7 +961,7 @@ export function transformNode(
             case "for":
                 let forResult = applyDirective(
                     node as any,
-                    "v-for",
+                    DIRECTIVE_MAP_ENUM.for.directive,
                     node.children,
                 );
                 if (!forResult) return [];
@@ -945,58 +969,16 @@ export function transformNode(
                 return forResultWithExtras ? [forResultWithExtras] : [];
 
             case "show":
-                return (
-                    applyDirective(
-                        node,
-                        "v-show",
-                        node.children,
-                    ) || []
-                );
             case "cloak":
-                return (
-                    applyDirective(
-                        node,
-                        "v-cloak",
-                        node.children,
-                    ) || []
-                );
             case "text":
-                return (
-                    applyDirective(
-                        node,
-                        "v-text",
-                        node.children,
-                    ) || []
-                );
             case "html":
-                return (
-                    applyDirective(
-                        node,
-                        "v-html",
-                        node.children,
-                    ) || []
-                );
             case "memo":
-                return (
-                    applyDirective(
-                        node,
-                        "v-memo",
-                        node.children,
-                    ) || []
-                );
             case "pre":
-                return (
-                    applyDirective(
-                        node,
-                        "v-pre",
-                        node.children,
-                    ) || []
-                );
             case "once":
                 return (
                     applyDirective(
                         node,
-                        "v-once",
+                        DIRECTIVE_MAP_ENUM[node.name].directive,
                         node.children,
                     ) || []
                 );
