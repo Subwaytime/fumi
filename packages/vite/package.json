@@ -1,0 +1,16 @@
+{
+  "name": "@fumi/vite",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": "./index.js"
+  },
+  "dependencies": {
+    "@fumi/core": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "^8.0.3"
+  }
+}
