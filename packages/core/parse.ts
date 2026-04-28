@@ -1,7 +1,8 @@
-import { matchType, handleVariable, handleDirective, handleComment, handleHTML, handleText } from "./compiler";
+import { handleVariable, handleDirective, handleComment, handleHTML, handleText } from "./compiler";
 import { CHAR_CODES_ENUM } from "./enums/charCodes";
 import type { Stack, PosObj,  Node } from "./types";
 import { toCharCodes } from "./utils/toCharCodes";
+import { matchType } from "./utils/matchType";
 
 export function parse(template: string): Node[] {
     const codes = toCharCodes(template);
