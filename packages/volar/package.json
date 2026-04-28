@@ -1,0 +1,23 @@
+{
+  "name": "@fumi/volar",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": "./index.js"
+  },
+  "dependencies": {
+    "@fumi/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@volar/source-map": "^2.4.0",
+    "@vue/compiler-dom": "^3.5.31",
+    "@vue/language-core": "^3.2.6",
+    "@types/bun": "latest",
+    "type-fest": "^5.5.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
