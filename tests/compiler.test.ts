@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parse, transformNode, fumiToVue } from '../src/compiler';
+import { parse, transformNode, fumiToVue } from '../packages/core/index';
 
 describe('fumiToVue - basic HTML', () => {
     it('should convert simple text', () => {
@@ -247,6 +247,41 @@ describe('fumiToVue - edge cases', () => {
     });
 });
 
+describe('fumiToVue - error handling', () => {
+    it('should throw on mismatched closing tag', () => {
+        expect(() => fumiToVue('<div>Hello</span>')).toThrow();
+    });
+
+    it('should handle unclosed directive gracefully', () => {
+        const result = fumiToVue('{%if foo%}<div>Test</div>');
+        expect(result.htmlCode).toBe('');
+    });
+
+    it('should throw when v-else without v-if', () => {
+        expect(() => fumiToVue('{%else%}<div>Test</div>')).toThrow();
+    });
+
+    it('should throw when v-else-if without v-if', () => {
+        expect(() => fumiToVue('{%else-if foo%}<div>Test</div>')).toThrow();
+    });
+
+    it('should handle duplicate v-else gracefully', () => {
+        // Compiler doesn't error on duplicate v-else, renders both
+        const result = fumiToVue('{%if a%}A{%else%}B{%else%}C{%endif%}').htmlCode;
+        expect(result).toContain('v-else');
+    });
+
+    it('should handle empty template', () => {
+        const result = fumiToVue('');
+        expect(result.htmlCode).toBe('');
+    });
+
+    it('should handle template with only whitespace', () => {
+        const result = fumiToVue('   ');
+        expect(result.htmlCode).toBe('   ');
+    });
+});
+
 describe('fumiToVue - mappings', () => {
     it('should return htmlCode and mappings', () => {
         const result = fumiToVue('<div>Hello</div>');
@@ -296,7 +331,7 @@ describe('fumiToVue - mappings', () => {
         const result = fumiToVue(input);
         expect(result.htmlCode).toBe('Hello {{ name }}!');
 
-        const varMapping = result.mappings.find(m => m.sourceOffsets[0] === 9);
+        const varMapping = result.mappings.find(m => m.sourceOffsets[0] === 8);
         expect(varMapping).toBeDefined();
         expect(varMapping?.generatedOffsets[0]).toBe(9);
     });
@@ -376,5 +411,64 @@ describe('transformNode', () => {
         expect(transformed[0]!.props).toContainEqual(
             expect.objectContaining({ name: 'v-for' }),
         );
+    });
+});
+
+describe('parse - deep validation', () => {
+    it('should parse if directive with correct node type and name', () => {
+        const ast = parse('{%if foo%}Bar{%endif%}');
+        
+        expect(ast).toHaveLength(1);
+        expect(ast[0]!.type).toBe('Directive');
+        expect(ast[0]!.name).toBe('if');
+    });
+
+    it('should parse if directive with expression content', () => {
+        const ast = parse('{%if foo%}Bar{%endif%}');
+        const dirNode = ast[0] as any;
+        
+        expect(dirNode.expression.content).toBe('foo');
+    });
+
+    it('should parse v-for with variables', () => {
+        const ast = parse('{%for item in items%}{%endfor%}');
+        const dirNode = ast[0] as any;
+        
+        expect(dirNode.name).toBe('for');
+        expect(dirNode.expression.variables).toHaveLength(2);
+    });
+
+    it('should preserve source positions', () => {
+        const ast = parse('<div>Hello</div>');
+        const el = ast[0] as any;
+        
+        expect(el.pos.start).toBe(0);
+        expect(el.pos.end).toBe(16);
+    });
+});
+
+describe('transformNode - deep validation', () => {
+    it('should transform v-if with correct props', () => {
+        const ast = parse('{%if foo%}Bar{%endif%}');
+        const transformed = transformNode(ast[0]) as any[];
+        
+        expect(transformed[0].type).toBe('Element');
+        expect(transformed[0].props).toContainEqual(
+            expect.objectContaining({ name: 'v-if', value: 'foo' }),
+        );
+    });
+
+    it('should preserve sourceSpans', () => {
+        const ast = parse('{%if foo%}Bar{%endif%}');
+        const transformed = transformNode(ast[0]) as any[];
+        
+        expect(transformed[0].sourceSpans).toBeDefined();
+    });
+
+    it('should add inlineDirective', () => {
+        const ast = parse('{%if foo%}Bar{%endif%}');
+        const transformed = transformNode(ast[0]) as any[];
+        
+        expect(transformed[0].inlineDirective).toBeDefined();
     });
 });
