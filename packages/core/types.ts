@@ -73,6 +73,15 @@ export interface VariableNode extends BaseNode {
     expression: Expression;
 }
 
+export type TransformedNode = Node & {
+    inlineDirective?: {
+        name: string;
+        expression: string | true;
+        pos: SourcePosition;
+        sourceSpans?: SourceSpans;
+    };
+};
+
 export type Stack = (DirectiveNode | ElementNode)[];
 export type PosObj = { value: number };
 
@@ -84,4 +93,24 @@ export interface Position {
 export interface SourcePosition extends Position {
     open?: Position;
     close?: Position
+}
+
+export type CodeType =
+    | "comment-start"
+    | "comment-end"
+    | "variable-start"
+    | "variable-end"
+    | "directive-start"
+    | "directive-end";
+
+export interface SourceSpans {
+    full: { start: number; end: number };
+    name?: { start: number; end: number; content: string };
+    expression?: { start: number; end: number; content: string };
+    tag?: { start: number; end: number };
+}
+
+export interface Mapping {
+    sourceRange: { start: number; end: number };
+    generatedRange: { start: number; end: number };
 }
