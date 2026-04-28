@@ -1,0 +1,14 @@
+{
+  "name": "@fumi/core",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./compiler.js",
+  "types": "./compiler.d.ts",
+  "exports": {
+    ".": "./compiler.js"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "type-fest": "^5.5.0"
+  }
+}
