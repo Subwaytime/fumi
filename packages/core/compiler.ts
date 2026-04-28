@@ -3,6 +3,7 @@ import { isWhitespace } from "./utils/isWhitespace";
 import { matchSequence } from "./utils/matchSequence";
 import { CHAR_CODES_ENUM } from "./enums/charCodes";
 import { COMMON_SEQUENCES_ENUM } from "./enums/commonSequences";
+import { DIRECTIVE_MAP_ENUM } from "./enums/directiveMap";
 
 import type {
     Node,
@@ -718,7 +719,7 @@ export function applyDirective(
         } as TransformedNode;
     }
 
-    const attrs = [
+    const attrs: PropNode[] = [
         {
             type: "Attribute",
             name: directiveName,
@@ -739,6 +740,7 @@ export function applyDirective(
         name: directiveName,
         expression,
         sourceSpans: directiveNode.sourceSpans,
+        pos: directiveNode.pos,
     };
     return node;
 }
@@ -822,7 +824,7 @@ export function transformIf(
         const dirName =
             idx === 0
                 ? "v-if"
-                : DIRECTIVE_MAP_ENUM[branch.type];
+                : DIRECTIVE_MAP_ENUM[branch.type].directive;
 
         const singleEl = canInlineIf(branch.children);
         if (singleEl) {
@@ -889,7 +891,8 @@ export function transformNode(
     function applyExtras(result: TransformedNode | null, nodeName: string, expression?: Expression): TransformedNode | null {
         if (!result || result.type !== 'Element' || !expression) return result;
         const extras = expression.extras || {};
-        const allowed = DIRECTIVE_MAP_ENUM[nodeName] || [];
+        const mapEntry = DIRECTIVE_MAP_ENUM[nodeName as keyof typeof DIRECTIVE_MAP_ENUM];
+        const allowed = [...(mapEntry?.extras as readonly string[] || [])] as string[];
 
         // Handle key precedence: 'key' takes priority over ':key'
         const hasKey = 'key' in extras;
@@ -937,9 +940,9 @@ export function transformNode(
                     "v-for",
                     node.children,
                 );
-                return applyExtras(forResult, node.name, node.expression)
-                    ? [applyExtras(forResult, node.name, node.expression)]
-                    : [];
+                if (!forResult) return [];
+                const forResultWithExtras = applyExtras(forResult, node.name, node.expression);
+                return forResultWithExtras ? [forResultWithExtras] : [];
 
             case "show":
                 return (
