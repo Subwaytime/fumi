@@ -74,3 +74,5 @@ export const CHAR_CODES_ENUM = {
     LowerX: 0x78, // "x"
     LowerZ: 0x7a, // "z"
 } as const;
+
+Object.freeze(CHAR_CODES_ENUM);

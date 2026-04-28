@@ -15,3 +15,5 @@ export const COMMON_SEQUENCES_ENUM = {
         end: [CHAR_CODES_ENUM.Dash, CHAR_CODES_ENUM.Dash, CHAR_CODES_ENUM.Gt]
     }
 };
+
+Object.freeze(COMMON_SEQUENCES_ENUM);
