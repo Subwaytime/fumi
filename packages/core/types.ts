@@ -41,6 +41,7 @@ export interface ElementNode extends BaseNode {
     tag: string;
     tagPosition: Position;
     selfClosing?: boolean;
+    sourceSpans?: SourceSpans;
 }
 
 export interface Expression {
@@ -72,6 +73,7 @@ export interface TextNode extends BaseNode {
 export interface VariableNode extends BaseNode {
     type: 'Variable';
     expression: Expression;
+    sourceSpans?: SourceSpans;
 }
 
 export type TransformedNode = Node & {
@@ -81,6 +83,7 @@ export type TransformedNode = Node & {
         pos: SourcePosition;
         sourceSpans?: SourceSpans;
     };
+    sourceSpans?: SourceSpans;
 };
 
 export type Stack = (DirectiveNode | ElementNode)[];
