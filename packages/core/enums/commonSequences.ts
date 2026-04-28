@@ -14,4 +14,4 @@ export const COMMON_SEQUENCES_ENUM = {
         start: [CHAR_CODES_ENUM.Lt, CHAR_CODES_ENUM.ExclamationMark],
         end: [CHAR_CODES_ENUM.Dash, CHAR_CODES_ENUM.Dash, CHAR_CODES_ENUM.Gt]
     }
-} as const;
+};
