@@ -33,6 +33,7 @@ export interface DirectiveNode extends BaseNode {
     expression?: Expression;
     children: Node[];
     block?: Position;
+    sourceSpans?: SourceSpans;
 }
 
 export interface ElementNode extends BaseNode {
