@@ -2,10 +2,10 @@
   "name": "@fumi/core",
   "version": "0.0.1",
   "type": "module",
-  "main": "./compiler.js",
-  "types": "./compiler.d.ts",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "exports": {
-    ".": "./compiler.js"
+    ".": "./index.js"
   },
   "devDependencies": {
     "@types/bun": "latest",

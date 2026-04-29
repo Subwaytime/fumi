@@ -10,6 +10,10 @@
     "./volar": {
       "require": "./dist/volar.js",
       "types": "./dist/volar.d.ts"
+    },
+    "./core": {
+      "import": "./dist/core.ts",
+      "types": "./dist/core.d.ts"
     }
   },
   "workspaces": [
