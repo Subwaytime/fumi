@@ -5,6 +5,7 @@
     "": {
       "name": "fumi",
       "devDependencies": {
+        "@types/bun": "catalog:",
         "tsdown": "catalog:",
         "vitest": "^3.0.0",
       },
