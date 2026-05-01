@@ -1,13 +1,11 @@
 export type Node =
     | CommentNode
-    | DirectiveNode
     | ElementNode
     | TextNode
     | VariableNode;
 
 export type NodeType =
-    'Comment'
-    | 'Directive'
+    | 'Comment'
     | 'Element'
     | 'Text'
     | 'Variable';
@@ -25,23 +23,18 @@ export interface CommentNode extends BaseNode {
     content: string;
 }
 
-export type DirectiveName = 'if' | 'else' | 'else-if' | 'for' | 'cloak' | 'show' | 'text' | 'html' | 'memo' | 'pre' | 'once';
-
-export interface DirectiveNode extends BaseNode {
-    type: 'Directive';
-    name: DirectiveName;
-    expression?: Expression;
-    children: Node[];
-    block?: Position;
-    sourceSpans?: SourceSpans;
+export interface Blob {
+    content: string;
+    position: Position;
 }
+
+export type DirectiveName = 'if' | 'else' | 'else-if' | 'for' | 'cloak' | 'show' | 'text' | 'html' | 'memo' | 'pre' | 'once';
 
 export interface ElementNode extends BaseNode {
     type: 'Element';
-    tag: string;
-    tagPosition: Position;
+    tag: Blob;
     selfClosing?: boolean;
-    sourceSpans?: SourceSpans;
+    directiveName?: DirectiveName;
 }
 
 export interface Expression {
@@ -52,17 +45,15 @@ export interface Expression {
 }
 
 export interface VariableRef {
-    name: string;
+    ref: string;
     pos: Position;
-    kind: 'destructured' | 'source' | 'standalone'
+    kind: 'loop_destructured' | 'loop_index' | 'loop_source' | 'loop_variable' | 'standalone'
 }
 
 export interface PropNode {
     type: 'Attribute';
-    name: string;
-    value: string | true;
-    namePos?: { start: number; end: number };
-    valuePos?: { start: number; end: number };
+    name: Blob;
+    value: Blob | true;
 }
 
 export interface TextNode extends BaseNode {
@@ -73,20 +64,9 @@ export interface TextNode extends BaseNode {
 export interface VariableNode extends BaseNode {
     type: 'Variable';
     expression: Expression;
-    sourceSpans?: SourceSpans;
 }
 
-export type TransformedNode = Node & {
-    inlineDirective?: {
-        name: string;
-        expression: string | true;
-        pos: SourcePosition;
-        sourceSpans?: SourceSpans;
-    };
-    sourceSpans?: SourceSpans;
-};
-
-export type Stack = (DirectiveNode | ElementNode)[];
+export type Stack = ElementNode[];
 export type PosObj = { value: number };
 
 export interface Position {
@@ -107,14 +87,29 @@ export type CodeType =
     | "directive-start"
     | "directive-end";
 
-export interface SourceSpans {
-    full: { start: number; end: number };
-    name?: { start: number; end: number; content: string };
-    expression?: { start: number; end: number; content: string };
-    tag?: { start: number; end: number };
-}
-
 export interface Mapping {
     sourceRange: { start: number; end: number };
     generatedRange: { start: number; end: number };
+}
+
+export interface DirectiveBranch {
+    type: 'if' | 'else' | 'else-if';
+    expression: string | true;
+    children: Node[];
+    dirNode: DirectivePlaceholder;
+}
+
+export interface DirectivePlaceholder {
+    type: 'Directive';
+    name: DirectiveName;
+    pos: SourcePosition;
+    expression?: Expression;
+    children: Node[];
+}
+
+export interface ConditionalChainEntry {
+    parent: ElementNode | null;
+    rootIndex: number;
+    branches: DirectiveBranch[];
+    currentBranch: DirectiveBranch;
 }
