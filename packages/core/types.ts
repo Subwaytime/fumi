@@ -2,19 +2,22 @@ export type Node =
     | CommentNode
     | ElementNode
     | TextNode
-    | VariableNode;
+    | VariableNode
+    | DirectiveNode
+    | IfDirectiveNode;
 
 export type NodeType =
     | 'Comment'
     | 'Element'
     | 'Text'
-    | 'Variable';
+    | 'Variable'
+    | 'Directive'
+    | 'IfDirective'
+    | 'BranchPlaceholder';
 
 export interface BaseNode {
     type: NodeType;
     children?: Node[];
-    props?: PropNode[];
-    skipChildren?: boolean;
     pos: SourcePosition;
 }
 
@@ -28,19 +31,27 @@ export interface Blob {
     position: Position;
 }
 
-export type DirectiveName = 'if' | 'else' | 'else-if' | 'for' | 'cloak' | 'show' | 'text' | 'html' | 'memo' | 'pre' | 'once';
+export type SingleDirectiveName = 'for' | 'cloak' | 'show' | 'text' | 'html' | 'memo' | 'pre' | 'once';
+export type DirectiveName = SingleDirectiveName | 'if' | 'else' | 'else-if';
 
 export interface ElementNode extends BaseNode {
     type: 'Element';
     tag: Blob;
     selfClosing?: boolean;
-    directiveName?: DirectiveName;
+    props?: PropNode[];
+}
+
+export interface ExtraArg {
+    value: string;
+    pos: Position;
+    valuePos: Position;
+    keyPos: Position;
 }
 
 export interface Expression {
     content: string;
     variables: VariableRef[];
-    extras?: Record<string, string>;
+    extras?: Record<string, ExtraArg>;
     pos?: Position;
 }
 
@@ -66,7 +77,33 @@ export interface VariableNode extends BaseNode {
     expression: Expression;
 }
 
-export type Stack = ElementNode[];
+export interface DirectiveNode extends BaseNode {
+    type: 'Directive';
+    name: SingleDirectiveName;
+    namePos: Position;
+    expression?: Expression;
+}
+
+export interface IfBranch {
+    type: 'if' | 'else' | 'else-if';
+    expression?: Expression;
+    namePos: Position;
+    pos: SourcePosition;
+    children: Node[];
+}
+
+export interface IfDirectiveNode extends BaseNode {
+    type: 'IfDirective';
+    branches: IfBranch[];
+}
+
+export interface BranchPlaceholder {
+    type: 'BranchPlaceholder';
+    children: Node[];
+}
+
+export type StackNode = ElementNode | DirectiveNode | BranchPlaceholder;
+export type Stack = StackNode[];
 export type PosObj = { value: number };
 
 export interface Position {
@@ -88,28 +125,15 @@ export type CodeType =
     | "directive-end";
 
 export interface Mapping {
-    sourceRange: { start: number; end: number };
-    generatedRange: { start: number; end: number };
-}
-
-export interface DirectiveBranch {
-    type: 'if' | 'else' | 'else-if';
-    expression: string | true;
-    children: Node[];
-    dirNode: DirectivePlaceholder;
-}
-
-export interface DirectivePlaceholder {
-    type: 'Directive';
-    name: DirectiveName;
-    pos: SourcePosition;
-    expression?: Expression;
-    children: Node[];
-}
-
-export interface ConditionalChainEntry {
-    parent: ElementNode | null;
-    rootIndex: number;
-    branches: DirectiveBranch[];
-    currentBranch: DirectiveBranch;
+    sourceOffsets: number[];
+    generatedOffsets: number[];
+    lengths: number[];
+    data: {
+        verification: boolean;
+        completion: boolean;
+        navigation: boolean;
+        semantic: boolean;
+        structure: boolean;
+        format: boolean;
+    };
 }
