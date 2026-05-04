@@ -1,8 +1,8 @@
-import { generate } from "./generate";
+import { generate } from "./generator";
 import { parse } from "./parse";
-import type { Node } from "./types";
+import type { Mapping } from "./types";
 
-export function handle(content: string) {
+export function handle(content: string): { code: string; mappings: Mapping[] } {
     const ast = parse(content);
 
     const { code, mappings } = generate(ast as any);
