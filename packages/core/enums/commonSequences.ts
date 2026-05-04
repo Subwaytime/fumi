@@ -11,7 +11,7 @@ export const COMMON_SEQUENCES_ENUM = {
         selfEnd: [CHAR_CODES_ENUM.Slash, CHAR_CODES_ENUM.Gt]
     },
     comment: {
-        start: [CHAR_CODES_ENUM.Lt, CHAR_CODES_ENUM.ExclamationMark],
+        start: [CHAR_CODES_ENUM.Lt, CHAR_CODES_ENUM.ExclamationMark, CHAR_CODES_ENUM.Dash, CHAR_CODES_ENUM.Dash],
         end: [CHAR_CODES_ENUM.Dash, CHAR_CODES_ENUM.Dash, CHAR_CODES_ENUM.Gt]
     }
 };
