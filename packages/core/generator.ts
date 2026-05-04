@@ -132,9 +132,11 @@ function generateElement(node: ElementNode, ctx: Context): void {
                 emitGen(ctx, '="true"');
             }
         } else {
-            emitGen(ctx, '="');
-            emitMap(ctx, prop.value.content, prop.value.position.start);
-            emitGen(ctx, '"');
+            const val = prop.value.content;
+            const quote = val.includes('"') ? "'" : '"';
+            emitGen(ctx, '=' + quote);
+            emitMap(ctx, val, prop.value.position.start);
+            emitGen(ctx, quote);
         }
     }
 
