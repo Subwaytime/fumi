@@ -45,10 +45,7 @@ export function parseExpression(expr: string, startOffset: number, loopVars?: Re
     let match;
     while ((match = EXTRA_ARGS_REGEX.exec(expr)) !== null) {
         const [, , argName, doubleQuoteVal, singleQuoteVal, varRef, , backtickVal] = match;
-        let rawValue = doubleQuoteVal ?? singleQuoteVal ?? varRef ?? backtickVal ?? '';
-        if (rawValue.startsWith('`') && rawValue.endsWith('`')) {
-            rawValue = rawValue.slice(1, -1);
-        }
+        const rawValue = doubleQuoteVal ?? singleQuoteVal ?? varRef ?? backtickVal ?? '';
 
         const fullMatch = match[0];
         const leadingComma = /^,?\s*/.exec(fullMatch);
@@ -73,6 +70,18 @@ export function parseExpression(expr: string, startOffset: number, loopVars?: Re
         };
     }
 
+    // Build list of extra-arg ranges to skip during word parsing
+    const extraRanges: Array<{ start: number; end: number }> = [];
+    for (const extra of Object.values(extras)) {
+        extraRanges.push({ start: extra.pos.start - startOffset, end: extra.pos.end - startOffset });
+    }
+    function isInsideExtra(start: number, end: number): boolean {
+        for (const r of extraRanges) {
+            if (start < r.end && end > r.start) return true;
+        }
+        return false;
+    }
+
     const codes = toCharCodes(expr);
     const len = codes.length;
 
@@ -85,7 +94,7 @@ export function parseExpression(expr: string, startOffset: number, loopVars?: Re
     let currentWord = '';
 
     function flushWord(start: number, end: number, kind: VariableRef['kind']) {
-        if (end > start) {
+        if (end > start && !isInsideExtra(start, end)) {
             const word = expr.slice(start, end);
             variables.push({
                 ref: word,
@@ -501,7 +510,7 @@ function handleEndDirective(
 
     const meaningfulChildren = node.children?.filter(isMeaningful) || [];
     if (meaningfulChildren.length === 0) {
-        return;
+        node.children = [];
     }
 
     pushNode(node, stack, root);
