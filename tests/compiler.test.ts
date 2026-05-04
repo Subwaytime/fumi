@@ -545,7 +545,7 @@ describe('fumiToVue - else/else-if with multiple children', () => {
 describe('fumiToVue - edge cases', () => {
     it('should handle empty for loop body', () => {
         const result = handle('{%for item in items%}{%endfor%}').code;
-        expect(result).toBe('');
+        expect(result).toBe('<template v-for="item in items"></template>');
     });
 
     it('should handle for with multiple children containing text', () => {
