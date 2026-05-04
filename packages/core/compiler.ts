@@ -3,53 +3,74 @@ import { isWhitespace } from "./utils/isWhitespace";
 import { matchSequence } from "./utils/matchSequence";
 import { CHAR_CODES_ENUM } from "./enums/charCodes";
 import { COMMON_SEQUENCES_ENUM } from "./enums/commonSequences";
-import { DIRECTIVE_MAP_ENUM } from "./enums/directiveMap";
 
 import type {
     Node,
     CommentNode,
     ElementNode,
-    PropNode,
     TextNode,
     VariableNode,
-    DirectiveName,
+    DirectiveNode,
+    IfDirectiveNode,
+    IfBranch,
+    BranchPlaceholder,
     Expression,
     VariableRef,
     Stack,
     PosObj,
     Position,
-    ConditionalChainEntry,
-    DirectiveBranch,
-    DirectivePlaceholder,
+    SingleDirectiveName,
+    DirectiveName,
+    ExtraArg,
 } from "./types";
 import { FLAVOR_ENUM } from "./enums/flavor";
 import { matchType } from "./utils/matchType";
 
 const EXTRA_ARGS_REGEX = /(?:^|,\s*)(:?)(\w+)=(?:"([^"]*)"|'([^']*)'|(\$[^\s,]+)|(`([^`]+)`))/g;
 
-function getDirectiveExpression(
-    directiveName: string,
-    directiveKey: DirectiveName,
-    expr: Expression | undefined,
-): string | true {
-    const isBoolean = (DIRECTIVE_MAP_ENUM[directiveKey as keyof typeof DIRECTIVE_MAP_ENUM] as { boolean?: true })?.boolean ?? false;
-    return isBoolean && !expr ? true : (expr?.content ?? true);
+function getCleanExpression(expr: string): string {
+    return expr
+        .replace(/(?:^|,\s*):?(\w+)=(?:"[^"]*"|'[^']*'|(\$[^\s,]+)|(`[^`]+`))/g, '')
+        .replace(/,\s*,/g, ',')
+        .replace(/,\s*$/, '')
+        .trim();
 }
 
 // --- Expression Parsing ---
 
 export function parseExpression(expr: string, startOffset: number, loopVars?: ReadonlySet<string>[]): Expression {
     const variables: VariableRef[] = [];
-    const extras: Record<string, string> = {};
+    const extras: Record<string, ExtraArg> = {};
 
     let match;
     while ((match = EXTRA_ARGS_REGEX.exec(expr)) !== null) {
-        const [, colonPrefix, argName, doubleQuoteVal, singleQuoteVal, varRef, backtickVal] = match;
+        const [, , argName, doubleQuoteVal, singleQuoteVal, varRef, , backtickVal] = match;
         let rawValue = doubleQuoteVal ?? singleQuoteVal ?? varRef ?? backtickVal ?? '';
         if (rawValue.startsWith('`') && rawValue.endsWith('`')) {
             rawValue = rawValue.slice(1, -1);
         }
-        extras[colonPrefix + argName] = rawValue;
+
+        const fullMatch = match[0];
+        const leadingComma = /^,?\s*/.exec(fullMatch);
+        const actualStart = match.index + (leadingComma ? leadingComma[0].length : 0);
+        const actualEnd = match.index + fullMatch.length;
+
+        // Determine if there was a colon prefix in the match
+        const colonPrefix = match[1].startsWith(':') ? ':' : '';
+        const prefixEnd = (leadingComma ? leadingComma[0].length : 0) + (colonPrefix ? 1 : 0) + argName.length + 1; // +1 for '='
+        const valueStartInMatch = fullMatch.indexOf(rawValue, prefixEnd);
+        const valueStart = valueStartInMatch >= 0 ? startOffset + match.index + valueStartInMatch : startOffset + actualStart;
+        const valueEnd = valueStart + rawValue.length;
+
+        const keyStart = startOffset + actualStart;
+        const keyEnd = keyStart + (colonPrefix ? 1 : 0) + argName.length;
+
+        extras[colonPrefix + argName] = {
+            value: rawValue,
+            pos: { start: startOffset + actualStart, end: startOffset + actualEnd },
+            valuePos: { start: valueStart, end: valueEnd },
+            keyPos: { start: keyStart, end: keyEnd },
+        };
     }
 
     const codes = toCharCodes(expr);
@@ -205,11 +226,7 @@ export function parseExpression(expr: string, startOffset: number, loopVars?: Re
         flushWord(prevWordStart, prevWordEnd, 'standalone');
     }
 
-    let cleanExpr = expr
-        .replace(/(?:^|,\s*):?(\w+)=(?:"[^"]*"|'[^']*'|(\$[^\s,]+)|(`[^`]+`))/g, '')
-        .replace(/,\s*,/g, ',')
-        .replace(/,\s*$/, '')
-        .trim();
+    const cleanExpr = getCleanExpression(expr);
 
     let finalVars: VariableRef[];
     if (hasSeenIn || variables.length > 0) {
@@ -219,7 +236,7 @@ export function parseExpression(expr: string, startOffset: number, loopVars?: Re
             ref: cleanExpr,
             pos: { start: startOffset, end: startOffset + cleanExpr.length },
             kind: 'standalone',
-        } as any];
+        }];
     } else {
         finalVars = [];
     }
@@ -239,7 +256,12 @@ export function parseExpression(expr: string, startOffset: number, loopVars?: Re
     }
 
     const exprIdx = cleanExpr.length > 0 ? expr.indexOf(cleanExpr) : 0;
-    return { content: cleanExpr, variables: finalVars, extras, pos: { start: startOffset + exprIdx, end: startOffset + exprIdx + cleanExpr.length } };
+    return {
+        content: cleanExpr,
+        variables: finalVars,
+        extras: Object.keys(extras).length > 0 ? extras : undefined,
+        pos: { start: startOffset + exprIdx, end: startOffset + exprIdx + cleanExpr.length },
+    };
 }
 
 // --- Node Builders ---
@@ -248,7 +270,7 @@ export function buildElementNode(
     tag: string,
     position: Position,
     openEnd: number,
-    props: PropNode[] = [],
+    props: ElementNode['props'] = [],
     children: Node[] = [],
 ): ElementNode {
     return {
@@ -267,84 +289,48 @@ export function buildElementNode(
     };
 }
 
-function buildDirectiveProps(
-    directiveName: DirectiveName,
+export function buildDirectiveNode(
+    directiveName: SingleDirectiveName,
     openStart: number,
     openEnd: number,
-    expression: Expression | undefined,
-): PropNode[] {
-    const vueDirective = DIRECTIVE_MAP_ENUM[directiveName as keyof typeof DIRECTIVE_MAP_ENUM]?.directive;
-    if (!vueDirective) {
-        throw new Error(`Unknown directive: ${directiveName}`);
-    }
-
-    const exprContent = getDirectiveExpression(vueDirective, directiveName, expression);
-
-    const props: PropNode[] = [
-        {
-            type: "Attribute",
-            name: { content: vueDirective, position: { start: openStart, end: openStart + vueDirective.length } },
-            value: typeof exprContent === 'string'
-                ? { content: exprContent, position: expression?.pos ?? { start: openStart, end: openEnd } }
-                : true,
-        },
-    ];
-
-    const extras = expression?.extras || {};
-    const allowedExtras = [...(DIRECTIVE_MAP_ENUM[directiveName as keyof typeof DIRECTIVE_MAP_ENUM]?.extras as readonly string[] || [])] as string[];
-    const hasKey = 'key' in extras;
-    const hasMemo = 'memo' in extras;
-
-    const extraKeys = Object.keys(extras).filter(k => {
-        if (!allowedExtras.includes(k)) return false;
-        if (k === ':key' && hasKey) return false;
-        if (k === ':memo' && hasMemo) return false;
-        return true;
-    });
-
-    for (const name of extraKeys) {
-        let attrName: string;
-        if (name === 'memo' || name === ':memo') {
-            attrName = 'v-memo';
-        } else if (name === ':key') {
-            attrName = ':key';
-        } else {
-            attrName = name;
-        }
-        props.push({
-            type: 'Attribute',
-            name: { content: attrName, position: { start: 0, end: 0 } },
-            value: typeof extras[name] === 'string'
-                ? { content: extras[name], position: { start: 0, end: 0 } }
-                : true,
-        });
-    }
-
-    return props;
-}
-
-export function buildDirectiveElementNode(
-    directiveName: DirectiveName,
-    openStart: number,
-    openEnd: number,
+    namePos: { start: number; end: number },
     expression: Expression | undefined,
     children: Node[] = [],
-): ElementNode {
-    const props = buildDirectiveProps(directiveName, openStart, openEnd, expression);
-
+): DirectiveNode {
     return {
-        type: "Element",
-        tag: {
-            content: "template",
-            position: { start: openStart, end: openStart + 8 },
-        },
+        type: "Directive",
+        name: directiveName,
+        namePos,
         pos: {
             start: openStart,
             end: openEnd,
             open: { start: openStart, end: openEnd },
-            close: undefined,
         },
-        props,
+        expression,
+        children,
+    };
+}
+
+export function buildIfDirectiveNode(
+    branches: IfBranch[],
+    closeEnd: number,
+    closeStart: number,
+): IfDirectiveNode {
+    return {
+        type: "IfDirective",
+        pos: {
+            start: branches[0]!.pos.start,
+            end: closeEnd,
+            open: branches[0]!.pos.open,
+            close: { start: closeStart, end: closeEnd },
+        },
+        branches,
+    };
+}
+
+export function buildBranchPlaceholder(children: Node[]): BranchPlaceholder {
+    return {
+        type: 'BranchPlaceholder',
         children,
     };
 }
@@ -395,30 +381,13 @@ export function buildCommentNode(
     };
 }
 
-function buildDirectivePlaceholder(
-    name: DirectiveName,
-    openStart: number,
-    openEnd: number,
-    expression: Expression | undefined,
-): DirectivePlaceholder {
-    return {
-        type: "Directive",
-        name,
-        pos: {
-            start: openStart,
-            end: openEnd,
-            open: { start: openStart, end: openEnd },
-        },
-        expression,
-        children: [],
-    };
-}
-
 // --- Utilities ---
 
 export function isMeaningful(node: Node): boolean {
     return (
         node.type === "Element" ||
+        node.type === "Directive" ||
+        node.type === "IfDirective" ||
         node.type === "Comment" ||
         node.type === "Variable" ||
         (node.type === "Text" && node.content.trim() !== "")
@@ -435,29 +404,14 @@ export function pushNode(node: Node, stack: Stack, root: Node[]) {
     }
 }
 
-function tryInlineDirective(node: ElementNode): Node {
-    const meaningfulChildren = node.children?.filter(isMeaningful) || [];
-    if (meaningfulChildren.length === 1 && meaningfulChildren[0].type === 'Element') {
-        const child = meaningfulChildren[0] as ElementNode;
-        const existingProps = child.props || [];
-        const directiveProp = node.props?.[0];
-        const extraProps = node.props?.slice(1) || [];
-
-        return {
-            ...child,
-            directiveName: node.directiveName,
-            props: [...(directiveProp ? [directiveProp] : []), ...existingProps, ...extraProps],
-        };
-    }
-    return node;
-}
-
 // --- Directive Parsing ---
 
 interface DirectiveHeader {
     name: DirectiveName;
     expression: Expression | undefined;
     openStart: number;
+    openEnd: number;
+    namePos: { start: number; end: number };
 }
 
 function parseDirectiveHeader(
@@ -482,6 +436,7 @@ function parseDirectiveHeader(
 
     const [nameRaw, ...rest] = trimmed.split(/\s+/);
     const name = nameRaw.toLowerCase() as DirectiveName;
+    const namePos = { start: actualStart, end: actualStart + nameRaw.length };
     let expression: Expression | undefined;
 
     if (rest.length) {
@@ -492,14 +447,16 @@ function parseDirectiveHeader(
     }
 
     pos.value = contentEnd + FLAVOR_ENUM.end.length;
+    const openEnd = pos.value;
 
-    return { name, expression, openStart };
+    return { name, expression, openStart, openEnd, namePos };
 }
 
 // --- End Directive Handlers ---
 
 function handleEndDirective(
     actualName: DirectiveName,
+    openStart: number,
     pos: PosObj,
     root: Node[],
     stack: Stack,
@@ -511,63 +468,60 @@ function handleEndDirective(
     }
 
     if (actualName === "if") {
-        if (ctx.conditionalChains.length === 0) {
+        if (ctx.ifChains.length === 0) {
             throw new Error(`Unmatched directive end: endif at pos ${pos.value}`);
         }
 
-        const chain = ctx.conditionalChains.pop()!;
-        if (stack.length > 0) {
-            stack.pop();
+        const chain = ctx.ifChains.pop()!;
+        const placeholder = stack.pop();
+        if (!placeholder || placeholder.type !== 'BranchPlaceholder') {
+            throw new Error(`Expected branch placeholder to close if at pos ${pos.value}`);
         }
 
-        const meaningfulChildren = chain.currentBranch.children.filter(isMeaningful);
-        if (meaningfulChildren.length > 0 || chain.currentBranch.type === 'if') {
-            chain.branches.push(chain.currentBranch);
-        }
+        chain.branches.push(chain.currentBranch);
 
-        resolveConditionalChain(chain, root, stack);
+        const ifNode = buildIfDirectiveNode(chain.branches, pos.value, openStart);
+        pushNode(ifNode, stack, root);
         return;
     }
 
-    const directiveConfig = DIRECTIVE_MAP_ENUM[actualName as keyof typeof DIRECTIVE_MAP_ENUM];
-    if (directiveConfig) {
-        if (stack.length === 0) {
-            throw new Error(`Unmatched directive end: end${actualName} at pos ${pos.value}`);
-        }
+    const node = stack.pop();
+    if (!node) {
+        throw new Error(`Unmatched directive end: end${actualName} at pos ${pos.value}`);
+    }
+    if (node.type !== 'Directive') {
+        throw new Error(`Expected directive to close, got ${node.type} at pos ${pos.value}`);
+    }
+    if (node.name !== actualName) {
+        throw new Error(`Mismatched directive end: expected end${node.name}, got end${actualName} at pos ${pos.value}`);
+    }
 
-        const node = stack.pop();
-        if (!node || node.type !== 'Element') {
-            throw new Error(`Expected element to close directive end${actualName}`);
-        }
+    node.pos.end = pos.value;
+    node.pos.close = { start: openStart, end: pos.value };
 
-        if (node.directiveName !== actualName) {
-            throw new Error(`Mismatched directive end: expected end${node.directiveName}, got end${actualName} at pos ${pos.value}`);
-        }
-
-        const meaningfulChildren = node.children?.filter(isMeaningful) || [];
-        if (meaningfulChildren.length === 0) {
-            return;
-        }
-
-        pushNode(tryInlineDirective(node), stack, root);
+    const meaningfulChildren = node.children?.filter(isMeaningful) || [];
+    if (meaningfulChildren.length === 0) {
         return;
     }
+
+    pushNode(node, stack, root);
 }
 
 function handleBranchDirective(
-    name: DirectiveName,
+    name: 'else' | 'else-if',
     openStart: number,
     pos: PosObj,
     expression: Expression | undefined,
+    namePos: { start: number; end: number },
     root: Node[],
     stack: Stack,
     ctx: ParseContext,
 ): void {
-    if (ctx.conditionalChains.length === 0) {
+    if (ctx.ifChains.length === 0) {
         throw new Error(`${name} without matching if at pos ${openStart}`);
     }
 
-    const chain = ctx.conditionalChains[ctx.conditionalChains.length - 1];
+    const chain = ctx.ifChains[ctx.ifChains.length - 1];
 
     if (chain.currentBranch.type === 'else') {
         throw new Error(`${name} cannot appear after else at pos ${openStart}`);
@@ -577,51 +531,58 @@ function handleBranchDirective(
     if (hasElse) {
         throw new Error(`${name} cannot appear after else at pos ${openStart}`);
     }
-    chain.branches.push(chain.currentBranch);
 
-    if (stack.length > 0) {
-        stack.pop();
+    const placeholder = stack.pop();
+    if (!placeholder || placeholder.type !== 'BranchPlaceholder') {
+        throw new Error(`Expected branch placeholder at pos ${openStart}`);
     }
 
-    const dirNode = buildDirectivePlaceholder(name, openStart, pos.value, expression);
-    chain.currentBranch = {
-        type: name as 'else' | 'else-if',
-        expression: expression?.content ?? true,
-        children: dirNode.children,
-        dirNode,
-    };
+    chain.branches.push(chain.currentBranch);
 
-    stack.push(dirNode as unknown as ElementNode);
+    const newBranch: IfBranch = {
+        type: name,
+        expression,
+        namePos,
+        pos: { start: openStart, end: pos.value, open: { start: openStart, end: pos.value } },
+        children: [],
+    };
+    chain.currentBranch = newBranch;
+
+    const newPlaceholder = buildBranchPlaceholder(newBranch.children);
+    stack.push(newPlaceholder);
 }
 
 function handleOpenIf(
     openStart: number,
-    pos: PosObj,
+    openEnd: number,
     expression: Expression | undefined,
+    namePos: { start: number; end: number },
     root: Node[],
     stack: Stack,
     ctx: ParseContext,
 ): void {
-    const dirNode = buildDirectivePlaceholder("if", openStart, pos.value, expression);
-    const entry: ConditionalChainEntry = {
-        parent: stack.length > 0 ? stack[stack.length - 1] : null,
-        rootIndex: stack.length > 0 ? (stack[stack.length - 1]?.children?.length ?? root.length) : root.length,
-        branches: [],
-        currentBranch: {
-            type: "if",
-            expression: expression?.content ?? true,
-            children: dirNode.children,
-            dirNode,
-        },
+    const firstBranch: IfBranch = {
+        type: 'if',
+        expression,
+        namePos,
+        pos: { start: openStart, end: openEnd, open: { start: openStart, end: openEnd } },
+        children: [],
     };
-    ctx.conditionalChains.push(entry);
-    stack.push(dirNode as unknown as ElementNode);
+    const chain = {
+        branches: [] as IfBranch[],
+        currentBranch: firstBranch,
+    };
+    ctx.ifChains.push(chain);
+
+    const placeholder = buildBranchPlaceholder(firstBranch.children);
+    stack.push(placeholder);
 }
 
 function handleOpenDirective(
-    name: DirectiveName,
+    name: SingleDirectiveName,
     openStart: number,
-    pos: PosObj,
+    openEnd: number,
+    namePos: { start: number; end: number },
     expression: Expression | undefined,
     stack: Stack,
     loopVarsStack: Set<string>[],
@@ -638,92 +599,14 @@ function handleOpenDirective(
         loopVarsStack.push(loopVars);
     }
 
-    const node = buildDirectiveElementNode(name, openStart, pos.value, expression, []);
-    node.directiveName = name;
+    const node = buildDirectiveNode(name, openStart, openEnd, namePos, expression, []);
     stack.push(node);
-}
-
-// --- Conditional Chain Resolution ---
-
-function resolveConditionalChain(
-    chain: ConditionalChainEntry,
-    root: Node[],
-    stack: Stack,
-) {
-    const results: ElementNode[] = [];
-
-    for (let idx = 0; idx < chain.branches.length; idx++) {
-        const branch = chain.branches[idx];
-        results.push(resolveConditionalBranch(branch, idx));
-    }
-
-    if (stack.length > 0) {
-        const parent = stack[stack.length - 1];
-        parent.children = parent.children || [];
-        parent.children.push(...results);
-    } else {
-        root.push(...results);
-    }
-}
-
-function resolveConditionalBranch(
-    branch: DirectiveBranch,
-    branchIndex: number,
-): ElementNode {
-    const dirName = branchIndex === 0
-        ? "v-if"
-        : DIRECTIVE_MAP_ENUM[branch.type as keyof typeof DIRECTIVE_MAP_ENUM].directive;
-
-    const vueDirectiveProps: PropNode[] = [
-        {
-            type: "Attribute",
-            name: { content: dirName, position: { start: branch.dirNode.pos.start, end: branch.dirNode.pos.start + dirName.length } },
-            value: typeof branch.expression === 'string'
-                ? { content: branch.expression, position: branch.dirNode.expression?.pos ?? { start: branch.dirNode.pos.start, end: branch.dirNode.pos.end } }
-                : true,
-        },
-    ];
-
-    const meaningful = branch.children.filter(isMeaningful);
-    const singleEl = meaningful.length === 1 && meaningful[0].type === "Element"
-        ? meaningful[0] as ElementNode
-        : null;
-
-    if (singleEl) {
-        const existingProps = singleEl.props || [];
-        const hasVueConditional = existingProps.some(p =>
-            p.name.content === "v-if" || p.name.content === "v-else-if" || p.name.content === "v-else" || p.name.content === "v-show"
-        );
-
-        if (hasVueConditional) {
-            return buildElementNode(
-                "template",
-                { start: branch.dirNode.pos.start, end: branch.dirNode.pos.start + 8 },
-                branch.dirNode.pos.end,
-                vueDirectiveProps,
-                branch.children,
-            );
-        }
-
-        return {
-            ...singleEl,
-            props: [...vueDirectiveProps, ...existingProps],
-        };
-    }
-
-    return buildElementNode(
-        "template",
-        { start: branch.dirNode.pos.start, end: branch.dirNode.pos.start + 8 },
-        branch.dirNode.pos.end,
-        vueDirectiveProps,
-        branch.children,
-    );
 }
 
 // --- Directive Handler Entry Point ---
 
 export interface ParseContext {
-    conditionalChains: ConditionalChainEntry[];
+    ifChains: { branches: IfBranch[]; currentBranch: IfBranch }[];
 }
 
 export function handleDirective(
@@ -735,25 +618,26 @@ export function handleDirective(
     loopVarsStack: Set<string>[],
     ctx: ParseContext,
 ) {
-    const { name, expression, openStart } = parseDirectiveHeader(template, codes, pos, loopVarsStack);
+    const openStart = pos.value;
+    const { name, expression, openEnd, namePos } = parseDirectiveHeader(template, codes, pos, loopVarsStack);
 
     if (name.startsWith("end")) {
         const actualName = name.slice(3) as DirectiveName;
-        handleEndDirective(actualName, pos, root, stack, loopVarsStack, ctx);
+        handleEndDirective(actualName, openStart, pos, root, stack, loopVarsStack, ctx);
         return;
     }
 
     if (name === "else" || name === "else-if") {
-        handleBranchDirective(name, openStart, pos, expression, root, stack, ctx);
+        handleBranchDirective(name, openStart, pos, expression, namePos, root, stack, ctx);
         return;
     }
 
     if (name === "if") {
-        handleOpenIf(openStart, pos, expression, root, stack, ctx);
+        handleOpenIf(openStart, openEnd, expression, namePos, root, stack, ctx);
         return;
     }
 
-    handleOpenDirective(name, openStart, pos, expression, stack, loopVarsStack);
+    handleOpenDirective(name as SingleDirectiveName, openStart, openEnd, namePos, expression, stack, loopVarsStack);
 }
 
 // --- Variable Handler ---
@@ -782,7 +666,6 @@ export function handleVariable(
     pos.value += COMMON_SEQUENCES_ENUM.variable.end.length;
     const closeEnd = pos.value;
 
-    const currentLoopVars = loopVarsStack.length > 0 ? loopVarsStack[loopVarsStack.length - 1] : undefined;
     const expression = parseExpression(
         template.slice(exprStart, exprEnd),
         exprStart,
@@ -838,8 +721,8 @@ function extractProps(
     template: string,
     codes: Uint8Array,
     pos: PosObj,
-): PropNode[] {
-    const props: PropNode[] = [];
+): ElementNode['props'] {
+    const props: ElementNode['props'] = [];
 
     while (
         pos.value < codes.length &&
@@ -945,7 +828,7 @@ function extractProps(
         }
 
         if (attrName.trim()) {
-            const prop: PropNode = {
+            const prop: NonNullable<ElementNode['props']>[number] = {
                 type: "Attribute",
                 name: {
                     content: attrName,
@@ -1014,8 +897,11 @@ export function handleHTML(
         const node = stack.pop();
         if (!node) throw new Error(`Nothing left to close: ${tag}`);
 
-        if (node.type !== 'Element' || node.tag.content !== tag) {
+        if (node.type !== 'Element') {
             throw new Error(`Mismatched closing tag: ${tag}`);
+        }
+        if (node.tag.content !== tag) {
+            throw new Error(`Mismatched closing tag: expected </${node.tag.content}>, got </${tag}>`);
         }
 
         node.pos.end = pos.value;
