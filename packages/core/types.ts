@@ -116,6 +116,12 @@ export interface SourcePosition extends Position {
     close?: Position
 }
 
+export interface DirectiveMapConfig {
+    directive: string;
+    extras: Record<string, { transform: string | null }>;
+    noValue?: boolean;
+}
+
 export type CodeType =
     | "comment-start"
     | "comment-end"
