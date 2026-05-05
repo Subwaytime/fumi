@@ -26,11 +26,137 @@ import type {
 import { FLAVOR_ENUM } from "./enums/flavor";
 import { matchType } from "./utils/matchType";
 
-const EXTRA_ARGS_REGEX = /(?:^|,\s*)(:?)(\w+)=(?:"([^"]*)"|'([^']*)'|(\$[^\s,]+)|(`([^`]+)`))/g;
+// --- Extra Arg Parsing (charCodes-based) ---
 
-function getCleanExpression(expr: string): string {
-    return expr
-        .replace(/(?:^|,\s*):?(\w+)=(?:"[^"]*"|'[^']*'|(\$[^\s,]+)|(`[^`]+`))/g, '')
+interface ParsedExtra {
+    key: string;
+    value: string;
+    pos: Position;
+    keyPos: Position;
+    valuePos: Position;
+}
+
+function parseExtraArgs(expr: string, startOffset: number): { extras: Record<string, ExtraArg>; extraRanges: Array<{ start: number; end: number }> } {
+    const extras: Record<string, ExtraArg> = {};
+    const extraRanges: Array<{ start: number; end: number }> = [];
+    const codes = toCharCodes(expr);
+    const len = codes.length;
+    let i = 0;
+
+    while (i < len) {
+        // Skip whitespace
+        while (i < len && isWhitespace(codes[i])) i++;
+        if (i >= len) break;
+
+        // Look for comma separator
+        if (codes[i] !== CHAR_CODES_ENUM.Comma) {
+            i++;
+            continue;
+        }
+        const commaPos = i;
+        i++;
+
+        // Skip whitespace after comma
+        while (i < len && isWhitespace(codes[i])) i++;
+        if (i >= len) break;
+
+        // Parse key: optional colon + word chars
+        const keyStart = i;
+        let hasColon = false;
+        if (codes[i] === CHAR_CODES_ENUM.Colon) {
+            hasColon = true;
+            i++;
+        }
+
+        const nameStart = i;
+        while (i < len && isWordChar(codes[i])) i++;
+        if (i === nameStart) {
+            // No name found, skip
+            i = commaPos + 1;
+            continue;
+        }
+        const nameEnd = i;
+        const argName = expr.slice(nameStart, nameEnd);
+        const fullKey = (hasColon ? ':' : '') + argName;
+
+        // Skip whitespace before =
+        while (i < len && isWhitespace(codes[i])) i++;
+        if (i >= len || codes[i] !== CHAR_CODES_ENUM.Eq) {
+            // Not an extra arg (no =), skip
+            i = commaPos + 1;
+            continue;
+        }
+        i++; // skip =
+
+        // Skip whitespace after =
+        while (i < len && isWhitespace(codes[i])) i++;
+        if (i >= len) break;
+
+        // Parse quoted value
+        const quote = codes[i];
+        let valueStart: number;
+        let valueEnd: number;
+        let rawValue: string;
+
+        if (quote === CHAR_CODES_ENUM.DoubleQuote || quote === CHAR_CODES_ENUM.SingleQuote) {
+            i++;
+            valueStart = i;
+            while (i < len && codes[i] !== quote) i++;
+            valueEnd = i;
+            rawValue = expr.slice(valueStart, valueEnd);
+            if (i < len) i++; // skip closing quote
+        } else {
+            // Unquoted value (e.g. $var)
+            valueStart = i;
+            while (i < len && !isWhitespace(codes[i]) && codes[i] !== CHAR_CODES_ENUM.Comma) i++;
+            valueEnd = i;
+            rawValue = expr.slice(valueStart, valueEnd);
+        }
+
+        const extraEnd = i;
+        const extraStartOffset = startOffset + keyStart;
+        const extraEndOffset = startOffset + extraEnd;
+
+        extras[fullKey] = {
+            value: rawValue,
+            pos: { start: extraStartOffset, end: extraEndOffset },
+            valuePos: { start: startOffset + valueStart, end: startOffset + valueEnd },
+            keyPos: { start: startOffset + keyStart, end: startOffset + (hasColon ? nameStart : nameEnd) },
+        };
+        extraRanges.push({ start: keyStart, end: extraEnd });
+    }
+
+    return { extras, extraRanges };
+}
+
+function isWordChar(c: number): boolean {
+    return (c >= CHAR_CODES_ENUM.LowerA && c <= CHAR_CODES_ENUM.LowerZ) ||
+        (c >= CHAR_CODES_ENUM.UpperA && c <= CHAR_CODES_ENUM.UpperZ) ||
+        (c >= CHAR_CODES_ENUM.Zero && c <= CHAR_CODES_ENUM.Nine) ||
+        c === CHAR_CODES_ENUM.Underscore ||
+        c === CHAR_CODES_ENUM.Dollar;
+}
+
+function getCleanExpression(expr: string, extraRanges: Array<{ start: number; end: number }>): string {
+    if (extraRanges.length === 0) return expr.trim();
+
+    // Sort ranges
+    extraRanges.sort((a, b) => a.start - b.start);
+
+    // Build clean expression by excluding extra ranges
+    let result = '';
+    let pos = 0;
+    for (const range of extraRanges) {
+        if (range.start > pos) {
+            result += expr.slice(pos, range.start);
+        }
+        pos = range.end;
+    }
+    if (pos < expr.length) {
+        result += expr.slice(pos);
+    }
+
+    return result
         .replace(/,\s*,/g, ',')
         .replace(/,\s*$/, '')
         .trim();
@@ -40,41 +166,8 @@ function getCleanExpression(expr: string): string {
 
 export function parseExpression(expr: string, startOffset: number, loopVars?: ReadonlySet<string>[]): Expression {
     const variables: VariableRef[] = [];
-    const extras: Record<string, ExtraArg> = {};
+    const { extras, extraRanges } = parseExtraArgs(expr, startOffset);
 
-    let match;
-    while ((match = EXTRA_ARGS_REGEX.exec(expr)) !== null) {
-        const [, , argName, doubleQuoteVal, singleQuoteVal, varRef, , backtickVal] = match;
-        const rawValue = doubleQuoteVal ?? singleQuoteVal ?? varRef ?? backtickVal ?? '';
-
-        const fullMatch = match[0];
-        const leadingComma = /^,?\s*/.exec(fullMatch);
-        const actualStart = match.index + (leadingComma ? leadingComma[0].length : 0);
-        const actualEnd = match.index + fullMatch.length;
-
-        // Determine if there was a colon prefix in the match
-        const colonPrefix = match[1].startsWith(':') ? ':' : '';
-        const prefixEnd = (leadingComma ? leadingComma[0].length : 0) + (colonPrefix ? 1 : 0) + argName.length + 1; // +1 for '='
-        const valueStartInMatch = fullMatch.indexOf(rawValue, prefixEnd);
-        const valueStart = valueStartInMatch >= 0 ? startOffset + match.index + valueStartInMatch : startOffset + actualStart;
-        const valueEnd = valueStart + rawValue.length;
-
-        const keyStart = startOffset + actualStart;
-        const keyEnd = keyStart + (colonPrefix ? 1 : 0) + argName.length;
-
-        extras[colonPrefix + argName] = {
-            value: rawValue,
-            pos: { start: startOffset + actualStart, end: startOffset + actualEnd },
-            valuePos: { start: valueStart, end: valueEnd },
-            keyPos: { start: keyStart, end: keyEnd },
-        };
-    }
-
-    // Build list of extra-arg ranges to skip during word parsing
-    const extraRanges: Array<{ start: number; end: number }> = [];
-    for (const extra of Object.values(extras)) {
-        extraRanges.push({ start: extra.pos.start - startOffset, end: extra.pos.end - startOffset });
-    }
     function isInsideExtra(start: number, end: number): boolean {
         for (const r of extraRanges) {
             if (start < r.end && end > r.start) return true;
@@ -235,7 +328,7 @@ export function parseExpression(expr: string, startOffset: number, loopVars?: Re
         flushWord(prevWordStart, prevWordEnd, 'standalone');
     }
 
-    const cleanExpr = getCleanExpression(expr);
+    const cleanExpr = getCleanExpression(expr, extraRanges);
 
     let finalVars: VariableRef[];
     if (hasSeenIn || variables.length > 0) {

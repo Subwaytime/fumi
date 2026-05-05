@@ -8,6 +8,7 @@ import type {
     Mapping,
     DirectiveNode,
     IfDirectiveNode,
+    DirectiveMapConfig,
 } from './types';
 import { DIRECTIVE_MAP_ENUM } from './enums/directiveMap';
 import { isMeaningful } from './compiler';
@@ -169,11 +170,11 @@ function generateElement(node: ElementNode, ctx: Context): void {
 }
 
 function buildVueDirectiveProps(node: DirectiveNode): PropNode[] {
-    const config = DIRECTIVE_MAP_ENUM[node.name as keyof typeof DIRECTIVE_MAP_ENUM];
+    const config = DIRECTIVE_MAP_ENUM[node.name as keyof typeof DIRECTIVE_MAP_ENUM] as DirectiveMapConfig;
     const vueDirective = config.directive;
-    const isBoolean = (config as any).boolean ?? false;
+    const isNoValue = config.noValue ?? false;
 
-    const exprContent = isBoolean && !node.expression ? true : (node.expression?.content ?? true);
+    const exprContent = isNoValue && !node.expression ? true : (node.expression?.content ?? true);
 
     const props: PropNode[] = [
         {
@@ -185,29 +186,21 @@ function buildVueDirectiveProps(node: DirectiveNode): PropNode[] {
         },
     ];
 
-    if (node.name === 'for' && node.expression?.extras) {
-        const allowedExtras = [...(DIRECTIVE_MAP_ENUM.for.extras as readonly string[] || [])] as string[];
+    if (node.expression?.extras) {
+        const configExtras = DIRECTIVE_MAP_ENUM[node.name as keyof typeof DIRECTIVE_MAP_ENUM].extras;
         const extras = node.expression.extras;
-        const hasKey = 'key' in extras;
-        const hasMemo = 'memo' in extras;
 
-        const extraKeys = Object.keys(extras).filter(k => {
-            if (!allowedExtras.includes(k)) return false;
-            if (k === ':key' && hasKey) return false;
-            if (k === ':memo' && hasMemo) return false;
-            return true;
-        });
+        for (const [extraName, extraConfig] of Object.entries(configExtras)) {
+            const extra = extras[extraName];
+            if (!extra) continue;
 
-        for (const name of extraKeys) {
-            const extra = extras[name]!;
-            let attrName: string;
-            if (name === 'memo' || name === ':memo') {
-                attrName = 'v-memo';
-            } else if (name === ':key') {
-                attrName = ':key';
-            } else {
-                attrName = name;
-            }
+            // Prefer non-colon version when both exist (e.g. key over :key)
+            const baseName = extraName.replace(/^:/, '');
+            const hasNonColon = baseName in extras && baseName !== extraName;
+            const isColonVersion = extraName.startsWith(':');
+            if (isColonVersion && hasNonColon) continue;
+
+            const attrName = extraConfig.transform ?? extraName;
             props.push({
                 type: 'Attribute',
                 name: { content: attrName, position: extra.keyPos },
