@@ -1,8 +1,7 @@
-<h2 align="left">Fumi</h2>
+## Fumi
 
-<p align="left">
 A lightweight, intuitive template language for Vue 3. Write cleaner templates with `{%` blocks that compile to standard Vue directives — zero runtime overhead, full IDE support.
-</p>
+
 
 ## Features
 
