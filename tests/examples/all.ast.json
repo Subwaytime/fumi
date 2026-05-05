@@ -1,0 +1,4611 @@
+[
+    {
+        "type": "Text",
+        "content": "\n",
+        "pos": {
+            "start": 0,
+            "end": 1
+        }
+    },
+    {
+        "type": "Element",
+        "tag": {
+            "content": "template",
+            "position": {
+                "start": 2,
+                "end": 10
+            }
+        },
+        "pos": {
+            "start": 1,
+            "end": 3017,
+            "open": {
+                "start": 1,
+                "end": 11
+            },
+            "close": {
+                "start": 3006,
+                "end": 3017
+            }
+        },
+        "props": [],
+        "children": [
+            {
+                "type": "Text",
+                "content": "\n    ",
+                "pos": {
+                    "start": 11,
+                    "end": 16
+                }
+            },
+            {
+                "type": "Comment",
+                "content": " Main content area ",
+                "pos": {
+                    "start": 16,
+                    "end": 42,
+                    "open": {
+                        "start": 16,
+                        "end": 20
+                    },
+                    "close": {
+                        "start": 39,
+                        "end": 42
+                    }
+                }
+            },
+            {
+                "type": "Text",
+                "content": "\n    ",
+                "pos": {
+                    "start": 42,
+                    "end": 47
+                }
+            },
+            {
+                "type": "Element",
+                "tag": {
+                    "content": "h1",
+                    "position": {
+                        "start": 48,
+                        "end": 50
+                    }
+                },
+                "pos": {
+                    "start": 47,
+                    "end": 63,
+                    "open": {
+                        "start": 47,
+                        "end": 51
+                    },
+                    "close": {
+                        "start": 58,
+                        "end": 63
+                    }
+                },
+                "props": [],
+                "children": [
+                    {
+                        "type": "Text",
+                        "content": "Welcome",
+                        "pos": {
+                            "start": 51,
+                            "end": 58
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 63,
+                    "end": 69
+                }
+            },
+            {
+                "type": "Directive",
+                "name": "cloak",
+                "namePos": {
+                    "start": 71,
+                    "end": 76
+                },
+                "pos": {
+                    "start": 69,
+                    "end": 128,
+                    "open": {
+                        "start": 69,
+                        "end": 78
+                    },
+                    "close": {
+                        "start": 116,
+                        "end": 128
+                    }
+                },
+                "children": [
+                    {
+                        "type": "Text",
+                        "content": "\n        ",
+                        "pos": {
+                            "start": 78,
+                            "end": 87
+                        }
+                    },
+                    {
+                        "type": "Element",
+                        "tag": {
+                            "content": "p",
+                            "position": {
+                                "start": 88,
+                                "end": 89
+                            }
+                        },
+                        "pos": {
+                            "start": 87,
+                            "end": 111,
+                            "open": {
+                                "start": 87,
+                                "end": 90
+                            },
+                            "close": {
+                                "start": 107,
+                                "end": 111
+                            }
+                        },
+                        "props": [],
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "Loading indicator",
+                                "pos": {
+                                    "start": 90,
+                                    "end": 107
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Text",
+                        "content": "\n    ",
+                        "pos": {
+                            "start": 111,
+                            "end": 116
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 128,
+                    "end": 134
+                }
+            },
+            {
+                "type": "Directive",
+                "name": "once",
+                "namePos": {
+                    "start": 136,
+                    "end": 140
+                },
+                "pos": {
+                    "start": 134,
+                    "end": 187,
+                    "open": {
+                        "start": 134,
+                        "end": 142
+                    },
+                    "close": {
+                        "start": 176,
+                        "end": 187
+                    }
+                },
+                "children": [
+                    {
+                        "type": "Text",
+                        "content": "\n        ",
+                        "pos": {
+                            "start": 142,
+                            "end": 151
+                        }
+                    },
+                    {
+                        "type": "Element",
+                        "tag": {
+                            "content": "p",
+                            "position": {
+                                "start": 152,
+                                "end": 153
+                            }
+                        },
+                        "pos": {
+                            "start": 151,
+                            "end": 171,
+                            "open": {
+                                "start": 151,
+                                "end": 154
+                            },
+                            "close": {
+                                "start": 167,
+                                "end": 171
+                            }
+                        },
+                        "props": [],
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "Rendered once",
+                                "pos": {
+                                    "start": 154,
+                                    "end": 167
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Text",
+                        "content": "\n    ",
+                        "pos": {
+                            "start": 171,
+                            "end": 176
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 187,
+                    "end": 193
+                }
+            },
+            {
+                "type": "Directive",
+                "name": "pre",
+                "namePos": {
+                    "start": 195,
+                    "end": 198
+                },
+                "pos": {
+                    "start": 193,
+                    "end": 240,
+                    "open": {
+                        "start": 193,
+                        "end": 200
+                    },
+                    "close": {
+                        "start": 230,
+                        "end": 240
+                    }
+                },
+                "children": [
+                    {
+                        "type": "Text",
+                        "content": "\n        ",
+                        "pos": {
+                            "start": 200,
+                            "end": 209
+                        }
+                    },
+                    {
+                        "type": "Element",
+                        "tag": {
+                            "content": "p",
+                            "position": {
+                                "start": 210,
+                                "end": 211
+                            }
+                        },
+                        "pos": {
+                            "start": 209,
+                            "end": 225,
+                            "open": {
+                                "start": 209,
+                                "end": 212
+                            },
+                            "close": {
+                                "start": 221,
+                                "end": 225
+                            }
+                        },
+                        "props": [],
+                        "children": [
+                            {
+                                "type": "Variable",
+                                "pos": {
+                                    "start": 212,
+                                    "end": 221,
+                                    "open": {
+                                        "start": 212,
+                                        "end": 214
+                                    },
+                                    "close": {
+                                        "start": 219,
+                                        "end": 221
+                                    }
+                                },
+                                "expression": {
+                                    "content": "raw",
+                                    "variables": [
+                                        {
+                                            "ref": "raw",
+                                            "pos": {
+                                                "start": 215,
+                                                "end": 218
+                                            },
+                                            "kind": "standalone"
+                                        }
+                                    ],
+                                    "pos": {
+                                        "start": 215,
+                                        "end": 218
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Text",
+                        "content": "\n    ",
+                        "pos": {
+                            "start": 225,
+                            "end": 230
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 240,
+                    "end": 246
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 246,
+                    "end": 308,
+                    "open": {
+                        "start": 246,
+                        "end": 262
+                    },
+                    "close": {
+                        "start": 299,
+                        "end": 308
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "isLoading",
+                            "variables": [
+                                {
+                                    "ref": "isLoading",
+                                    "pos": {
+                                        "start": 251,
+                                        "end": 260
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 251,
+                                "end": 260
+                            }
+                        },
+                        "namePos": {
+                            "start": 248,
+                            "end": 250
+                        },
+                        "pos": {
+                            "start": 246,
+                            "end": 262,
+                            "open": {
+                                "start": 246,
+                                "end": 262
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 262,
+                                    "end": 271
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "span",
+                                    "position": {
+                                        "start": 272,
+                                        "end": 276
+                                    }
+                                },
+                                "pos": {
+                                    "start": 271,
+                                    "end": 294,
+                                    "open": {
+                                        "start": 271,
+                                        "end": 277
+                                    },
+                                    "close": {
+                                        "start": 287,
+                                        "end": 294
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Loading...",
+                                        "pos": {
+                                            "start": 277,
+                                            "end": 287
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 294,
+                                    "end": 299
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 308,
+                    "end": 314
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 314,
+                    "end": 425,
+                    "open": {
+                        "start": 314,
+                        "end": 342
+                    },
+                    "close": {
+                        "start": 416,
+                        "end": 425
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "user && user.isActive",
+                            "variables": [
+                                {
+                                    "ref": "user.isActive",
+                                    "pos": {
+                                        "start": 327,
+                                        "end": 340
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 319,
+                                "end": 340
+                            }
+                        },
+                        "namePos": {
+                            "start": 316,
+                            "end": 318
+                        },
+                        "pos": {
+                            "start": 314,
+                            "end": 342,
+                            "open": {
+                                "start": 314,
+                                "end": 342
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 342,
+                                    "end": 351
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "div",
+                                    "position": {
+                                        "start": 352,
+                                        "end": 355
+                                    }
+                                },
+                                "pos": {
+                                    "start": 351,
+                                    "end": 373,
+                                    "open": {
+                                        "start": 351,
+                                        "end": 356
+                                    },
+                                    "close": {
+                                        "start": 367,
+                                        "end": 373
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Active user",
+                                        "pos": {
+                                            "start": 356,
+                                            "end": 367
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 373,
+                                    "end": 378
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "else",
+                        "namePos": {
+                            "start": 380,
+                            "end": 384
+                        },
+                        "pos": {
+                            "start": 378,
+                            "end": 386,
+                            "open": {
+                                "start": 378,
+                                "end": 386
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 386,
+                                    "end": 395
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "div",
+                                    "position": {
+                                        "start": 396,
+                                        "end": 399
+                                    }
+                                },
+                                "pos": {
+                                    "start": 395,
+                                    "end": 411,
+                                    "open": {
+                                        "start": 395,
+                                        "end": 400
+                                    },
+                                    "close": {
+                                        "start": 405,
+                                        "end": 411
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Guest",
+                                        "pos": {
+                                            "start": 400,
+                                            "end": 405
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 411,
+                                    "end": 416
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 425,
+                    "end": 431
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 431,
+                    "end": 615,
+                    "open": {
+                        "start": 431,
+                        "end": 452
+                    },
+                    "close": {
+                        "start": 606,
+                        "end": 615
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "!hasPermission",
+                            "variables": [
+                                {
+                                    "ref": "hasPermission",
+                                    "pos": {
+                                        "start": 437,
+                                        "end": 450
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 436,
+                                "end": 450
+                            }
+                        },
+                        "namePos": {
+                            "start": 433,
+                            "end": 435
+                        },
+                        "pos": {
+                            "start": 431,
+                            "end": 452,
+                            "open": {
+                                "start": 431,
+                                "end": 452
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 452,
+                                    "end": 461
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "span",
+                                    "position": {
+                                        "start": 462,
+                                        "end": 466
+                                    }
+                                },
+                                "pos": {
+                                    "start": 461,
+                                    "end": 487,
+                                    "open": {
+                                        "start": 461,
+                                        "end": 467
+                                    },
+                                    "close": {
+                                        "start": 480,
+                                        "end": 487
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Access denied",
+                                        "pos": {
+                                            "start": 467,
+                                            "end": 480
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 487,
+                                    "end": 492
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "else-if",
+                        "expression": {
+                            "content": "role === 'admin'",
+                            "variables": [
+                                {
+                                    "ref": "role",
+                                    "pos": {
+                                        "start": 502,
+                                        "end": 506
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 502,
+                                "end": 518
+                            }
+                        },
+                        "namePos": {
+                            "start": 494,
+                            "end": 501
+                        },
+                        "pos": {
+                            "start": 492,
+                            "end": 520,
+                            "open": {
+                                "start": 492,
+                                "end": 520
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 520,
+                                    "end": 529
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "span",
+                                    "position": {
+                                        "start": 530,
+                                        "end": 534
+                                    }
+                                },
+                                "pos": {
+                                    "start": 529,
+                                    "end": 553,
+                                    "open": {
+                                        "start": 529,
+                                        "end": 535
+                                    },
+                                    "close": {
+                                        "start": 546,
+                                        "end": 553
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Admin panel",
+                                        "pos": {
+                                            "start": 535,
+                                            "end": 546
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 553,
+                                    "end": 558
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "else",
+                        "namePos": {
+                            "start": 560,
+                            "end": 564
+                        },
+                        "pos": {
+                            "start": 558,
+                            "end": 566,
+                            "open": {
+                                "start": 558,
+                                "end": 566
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 566,
+                                    "end": 575
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "span",
+                                    "position": {
+                                        "start": 576,
+                                        "end": 580
+                                    }
+                                },
+                                "pos": {
+                                    "start": 575,
+                                    "end": 601,
+                                    "open": {
+                                        "start": 575,
+                                        "end": 581
+                                    },
+                                    "close": {
+                                        "start": 594,
+                                        "end": 601
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Standard view",
+                                        "pos": {
+                                            "start": 581,
+                                            "end": 594
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 601,
+                                    "end": 606
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 615,
+                    "end": 621
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 621,
+                    "end": 678,
+                    "open": {
+                        "start": 621,
+                        "end": 638
+                    },
+                    "close": {
+                        "start": 669,
+                        "end": 678
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "count > 10",
+                            "variables": [
+                                {
+                                    "ref": "10",
+                                    "pos": {
+                                        "start": 634,
+                                        "end": 636
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 626,
+                                "end": 636
+                            }
+                        },
+                        "namePos": {
+                            "start": 623,
+                            "end": 625
+                        },
+                        "pos": {
+                            "start": 621,
+                            "end": 638,
+                            "open": {
+                                "start": 621,
+                                "end": 638
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 638,
+                                    "end": 647
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 648,
+                                        "end": 649
+                                    }
+                                },
+                                "pos": {
+                                    "start": 647,
+                                    "end": 664,
+                                    "open": {
+                                        "start": 647,
+                                        "end": 650
+                                    },
+                                    "close": {
+                                        "start": 660,
+                                        "end": 664
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Many items",
+                                        "pos": {
+                                            "start": 650,
+                                            "end": 660
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 664,
+                                    "end": 669
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 678,
+                    "end": 684
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 684,
+                    "end": 750,
+                    "open": {
+                        "start": 684,
+                        "end": 707
+                    },
+                    "close": {
+                        "start": 741,
+                        "end": 750
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "data ?? fallback",
+                            "variables": [
+                                {
+                                    "ref": "fallback",
+                                    "pos": {
+                                        "start": 697,
+                                        "end": 705
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 689,
+                                "end": 705
+                            }
+                        },
+                        "namePos": {
+                            "start": 686,
+                            "end": 688
+                        },
+                        "pos": {
+                            "start": 684,
+                            "end": 707,
+                            "open": {
+                                "start": 684,
+                                "end": 707
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 707,
+                                    "end": 716
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 717,
+                                        "end": 718
+                                    }
+                                },
+                                "pos": {
+                                    "start": 716,
+                                    "end": 736,
+                                    "open": {
+                                        "start": 716,
+                                        "end": 719
+                                    },
+                                    "close": {
+                                        "start": 732,
+                                        "end": 736
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "With fallback",
+                                        "pos": {
+                                            "start": 719,
+                                            "end": 732
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 736,
+                                    "end": 741
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 750,
+                    "end": 756
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 756,
+                    "end": 833,
+                    "open": {
+                        "start": 756,
+                        "end": 773
+                    },
+                    "close": {
+                        "start": 824,
+                        "end": 833
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "emptyFirst",
+                            "variables": [
+                                {
+                                    "ref": "emptyFirst",
+                                    "pos": {
+                                        "start": 761,
+                                        "end": 771
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 761,
+                                "end": 771
+                            }
+                        },
+                        "namePos": {
+                            "start": 758,
+                            "end": 760
+                        },
+                        "pos": {
+                            "start": 756,
+                            "end": 773,
+                            "open": {
+                                "start": 756,
+                                "end": 773
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 773,
+                                    "end": 782
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "else",
+                        "namePos": {
+                            "start": 784,
+                            "end": 788
+                        },
+                        "pos": {
+                            "start": 782,
+                            "end": 790,
+                            "open": {
+                                "start": 782,
+                                "end": 790
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 790,
+                                    "end": 799
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 800,
+                                        "end": 801
+                                    }
+                                },
+                                "pos": {
+                                    "start": 799,
+                                    "end": 819,
+                                    "open": {
+                                        "start": 799,
+                                        "end": 802
+                                    },
+                                    "close": {
+                                        "start": 815,
+                                        "end": 819
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Only fallback",
+                                        "pos": {
+                                            "start": 802,
+                                            "end": 815
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 819,
+                                    "end": 824
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 833,
+                    "end": 839
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 839,
+                    "end": 916,
+                    "open": {
+                        "start": 839,
+                        "end": 857
+                    },
+                    "close": {
+                        "start": 907,
+                        "end": 916
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "emptySecond",
+                            "variables": [
+                                {
+                                    "ref": "emptySecond",
+                                    "pos": {
+                                        "start": 844,
+                                        "end": 855
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 844,
+                                "end": 855
+                            }
+                        },
+                        "namePos": {
+                            "start": 841,
+                            "end": 843
+                        },
+                        "pos": {
+                            "start": 839,
+                            "end": 857,
+                            "open": {
+                                "start": 839,
+                                "end": 857
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 857,
+                                    "end": 866
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 867,
+                                        "end": 868
+                                    }
+                                },
+                                "pos": {
+                                    "start": 866,
+                                    "end": 885,
+                                    "open": {
+                                        "start": 866,
+                                        "end": 869
+                                    },
+                                    "close": {
+                                        "start": 881,
+                                        "end": 885
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Only content",
+                                        "pos": {
+                                            "start": 869,
+                                            "end": 881
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 885,
+                                    "end": 894
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "else",
+                        "namePos": {
+                            "start": 896,
+                            "end": 900
+                        },
+                        "pos": {
+                            "start": 894,
+                            "end": 902,
+                            "open": {
+                                "start": 894,
+                                "end": 902
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 902,
+                                    "end": 907
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 916,
+                    "end": 922
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 922,
+                    "end": 1023,
+                    "open": {
+                        "start": 922,
+                        "end": 934
+                    },
+                    "close": {
+                        "start": 1014,
+                        "end": 1023
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "outer",
+                            "variables": [
+                                {
+                                    "ref": "outer",
+                                    "pos": {
+                                        "start": 927,
+                                        "end": 932
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 927,
+                                "end": 932
+                            }
+                        },
+                        "namePos": {
+                            "start": 924,
+                            "end": 926
+                        },
+                        "pos": {
+                            "start": 922,
+                            "end": 934,
+                            "open": {
+                                "start": 922,
+                                "end": 934
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 934,
+                                    "end": 943
+                                }
+                            },
+                            {
+                                "type": "IfDirective",
+                                "pos": {
+                                    "start": 943,
+                                    "end": 1009,
+                                    "open": {
+                                        "start": 943,
+                                        "end": 955
+                                    },
+                                    "close": {
+                                        "start": 1000,
+                                        "end": 1009
+                                    }
+                                },
+                                "branches": [
+                                    {
+                                        "type": "if",
+                                        "expression": {
+                                            "content": "inner",
+                                            "variables": [
+                                                {
+                                                    "ref": "inner",
+                                                    "pos": {
+                                                        "start": 948,
+                                                        "end": 953
+                                                    },
+                                                    "kind": "standalone"
+                                                }
+                                            ],
+                                            "pos": {
+                                                "start": 948,
+                                                "end": 953
+                                            }
+                                        },
+                                        "namePos": {
+                                            "start": 945,
+                                            "end": 947
+                                        },
+                                        "pos": {
+                                            "start": 943,
+                                            "end": 955,
+                                            "open": {
+                                                "start": 943,
+                                                "end": 955
+                                            }
+                                        },
+                                        "children": [
+                                            {
+                                                "type": "Text",
+                                                "content": "\n            ",
+                                                "pos": {
+                                                    "start": 955,
+                                                    "end": 968
+                                                }
+                                            },
+                                            {
+                                                "type": "Element",
+                                                "tag": {
+                                                    "content": "p",
+                                                    "position": {
+                                                        "start": 969,
+                                                        "end": 970
+                                                    }
+                                                },
+                                                "pos": {
+                                                    "start": 968,
+                                                    "end": 991,
+                                                    "open": {
+                                                        "start": 968,
+                                                        "end": 971
+                                                    },
+                                                    "close": {
+                                                        "start": 987,
+                                                        "end": 991
+                                                    }
+                                                },
+                                                "props": [],
+                                                "children": [
+                                                    {
+                                                        "type": "Text",
+                                                        "content": "Nested condition",
+                                                        "pos": {
+                                                            "start": 971,
+                                                            "end": 987
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "Text",
+                                                "content": "\n        ",
+                                                "pos": {
+                                                    "start": 991,
+                                                    "end": 1000
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 1009,
+                                    "end": 1014
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 1023,
+                    "end": 1029
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 1029,
+                    "end": 1174,
+                    "open": {
+                        "start": 1029,
+                        "end": 1041
+                    },
+                    "close": {
+                        "start": 1165,
+                        "end": 1174
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "deepA",
+                            "variables": [
+                                {
+                                    "ref": "deepA",
+                                    "pos": {
+                                        "start": 1034,
+                                        "end": 1039
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 1034,
+                                "end": 1039
+                            }
+                        },
+                        "namePos": {
+                            "start": 1031,
+                            "end": 1033
+                        },
+                        "pos": {
+                            "start": 1029,
+                            "end": 1041,
+                            "open": {
+                                "start": 1029,
+                                "end": 1041
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 1041,
+                                    "end": 1050
+                                }
+                            },
+                            {
+                                "type": "IfDirective",
+                                "pos": {
+                                    "start": 1050,
+                                    "end": 1160,
+                                    "open": {
+                                        "start": 1050,
+                                        "end": 1062
+                                    },
+                                    "close": {
+                                        "start": 1151,
+                                        "end": 1160
+                                    }
+                                },
+                                "branches": [
+                                    {
+                                        "type": "if",
+                                        "expression": {
+                                            "content": "deepB",
+                                            "variables": [
+                                                {
+                                                    "ref": "deepB",
+                                                    "pos": {
+                                                        "start": 1055,
+                                                        "end": 1060
+                                                    },
+                                                    "kind": "standalone"
+                                                }
+                                            ],
+                                            "pos": {
+                                                "start": 1055,
+                                                "end": 1060
+                                            }
+                                        },
+                                        "namePos": {
+                                            "start": 1052,
+                                            "end": 1054
+                                        },
+                                        "pos": {
+                                            "start": 1050,
+                                            "end": 1062,
+                                            "open": {
+                                                "start": 1050,
+                                                "end": 1062
+                                            }
+                                        },
+                                        "children": [
+                                            {
+                                                "type": "Text",
+                                                "content": "\n            ",
+                                                "pos": {
+                                                    "start": 1062,
+                                                    "end": 1075
+                                                }
+                                            },
+                                            {
+                                                "type": "IfDirective",
+                                                "pos": {
+                                                    "start": 1075,
+                                                    "end": 1142,
+                                                    "open": {
+                                                        "start": 1075,
+                                                        "end": 1087
+                                                    },
+                                                    "close": {
+                                                        "start": 1133,
+                                                        "end": 1142
+                                                    }
+                                                },
+                                                "branches": [
+                                                    {
+                                                        "type": "if",
+                                                        "expression": {
+                                                            "content": "deepC",
+                                                            "variables": [
+                                                                {
+                                                                    "ref": "deepC",
+                                                                    "pos": {
+                                                                        "start": 1080,
+                                                                        "end": 1085
+                                                                    },
+                                                                    "kind": "standalone"
+                                                                }
+                                                            ],
+                                                            "pos": {
+                                                                "start": 1080,
+                                                                "end": 1085
+                                                            }
+                                                        },
+                                                        "namePos": {
+                                                            "start": 1077,
+                                                            "end": 1079
+                                                        },
+                                                        "pos": {
+                                                            "start": 1075,
+                                                            "end": 1087,
+                                                            "open": {
+                                                                "start": 1075,
+                                                                "end": 1087
+                                                            }
+                                                        },
+                                                        "children": [
+                                                            {
+                                                                "type": "Text",
+                                                                "content": "\n            ",
+                                                                "pos": {
+                                                                    "start": 1087,
+                                                                    "end": 1100
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "Element",
+                                                                "tag": {
+                                                                    "content": "p",
+                                                                    "position": {
+                                                                        "start": 1101,
+                                                                        "end": 1102
+                                                                    }
+                                                                },
+                                                                "pos": {
+                                                                    "start": 1100,
+                                                                    "end": 1120,
+                                                                    "open": {
+                                                                        "start": 1100,
+                                                                        "end": 1103
+                                                                    },
+                                                                    "close": {
+                                                                        "start": 1116,
+                                                                        "end": 1120
+                                                                    }
+                                                                },
+                                                                "props": [],
+                                                                "children": [
+                                                                    {
+                                                                        "type": "Text",
+                                                                        "content": "Deeply nested",
+                                                                        "pos": {
+                                                                            "start": 1103,
+                                                                            "end": 1116
+                                                                        }
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "Text",
+                                                                "content": "\n            ",
+                                                                "pos": {
+                                                                    "start": 1120,
+                                                                    "end": 1133
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "Text",
+                                                "content": "\n        ",
+                                                "pos": {
+                                                    "start": 1142,
+                                                    "end": 1151
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 1160,
+                                    "end": 1165
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 1174,
+                    "end": 1180
+                }
+            },
+            {
+                "type": "Directive",
+                "name": "show",
+                "namePos": {
+                    "start": 1182,
+                    "end": 1186
+                },
+                "pos": {
+                    "start": 1180,
+                    "end": 1251,
+                    "open": {
+                        "start": 1180,
+                        "end": 1198
+                    },
+                    "close": {
+                        "start": 1240,
+                        "end": 1251
+                    }
+                },
+                "expression": {
+                    "content": "isVisible",
+                    "variables": [
+                        {
+                            "ref": "isVisible",
+                            "pos": {
+                                "start": 1187,
+                                "end": 1196
+                            },
+                            "kind": "standalone"
+                        }
+                    ],
+                    "pos": {
+                        "start": 1187,
+                        "end": 1196
+                    }
+                },
+                "children": [
+                    {
+                        "type": "Text",
+                        "content": "\n        ",
+                        "pos": {
+                            "start": 1198,
+                            "end": 1207
+                        }
+                    },
+                    {
+                        "type": "Element",
+                        "tag": {
+                            "content": "p",
+                            "position": {
+                                "start": 1208,
+                                "end": 1209
+                            }
+                        },
+                        "pos": {
+                            "start": 1207,
+                            "end": 1235,
+                            "open": {
+                                "start": 1207,
+                                "end": 1210
+                            },
+                            "close": {
+                                "start": 1231,
+                                "end": 1235
+                            }
+                        },
+                        "props": [],
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "Conditionally visible",
+                                "pos": {
+                                    "start": 1210,
+                                    "end": 1231
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Text",
+                        "content": "\n    ",
+                        "pos": {
+                            "start": 1235,
+                            "end": 1240
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 1251,
+                    "end": 1257
+                }
+            },
+            {
+                "type": "Directive",
+                "name": "for",
+                "namePos": {
+                    "start": 1259,
+                    "end": 1262
+                },
+                "pos": {
+                    "start": 1257,
+                    "end": 1328,
+                    "open": {
+                        "start": 1257,
+                        "end": 1278
+                    },
+                    "close": {
+                        "start": 1318,
+                        "end": 1328
+                    }
+                },
+                "expression": {
+                    "content": "item in items",
+                    "variables": [
+                        {
+                            "ref": "item",
+                            "pos": {
+                                "start": 1263,
+                                "end": 1267
+                            },
+                            "kind": "loop_destructured"
+                        },
+                        {
+                            "ref": "items",
+                            "pos": {
+                                "start": 1271,
+                                "end": 1276
+                            },
+                            "kind": "loop_source"
+                        }
+                    ],
+                    "pos": {
+                        "start": 1263,
+                        "end": 1276
+                    }
+                },
+                "children": [
+                    {
+                        "type": "Text",
+                        "content": "\n        ",
+                        "pos": {
+                            "start": 1278,
+                            "end": 1287
+                        }
+                    },
+                    {
+                        "type": "Element",
+                        "tag": {
+                            "content": "div",
+                            "position": {
+                                "start": 1288,
+                                "end": 1291
+                            }
+                        },
+                        "pos": {
+                            "start": 1287,
+                            "end": 1313,
+                            "open": {
+                                "start": 1287,
+                                "end": 1292
+                            },
+                            "close": {
+                                "start": 1307,
+                                "end": 1313
+                            }
+                        },
+                        "props": [],
+                        "children": [
+                            {
+                                "type": "Variable",
+                                "pos": {
+                                    "start": 1292,
+                                    "end": 1307,
+                                    "open": {
+                                        "start": 1292,
+                                        "end": 1294
+                                    },
+                                    "close": {
+                                        "start": 1305,
+                                        "end": 1307
+                                    }
+                                },
+                                "expression": {
+                                    "content": "item.name",
+                                    "variables": [
+                                        {
+                                            "ref": "item.name",
+                                            "pos": {
+                                                "start": 1295,
+                                                "end": 1304
+                                            },
+                                            "kind": "loop_variable"
+                                        }
+                                    ],
+                                    "pos": {
+                                        "start": 1295,
+                                        "end": 1304
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Text",
+                        "content": "\n    ",
+                        "pos": {
+                            "start": 1313,
+                            "end": 1318
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 1328,
+                    "end": 1334
+                }
+            },
+            {
+                "type": "Directive",
+                "name": "for",
+                "namePos": {
+                    "start": 1336,
+                    "end": 1339
+                },
+                "pos": {
+                    "start": 1334,
+                    "end": 1442,
+                    "open": {
+                        "start": 1334,
+                        "end": 1388
+                    },
+                    "close": {
+                        "start": 1432,
+                        "end": 1442
+                    }
+                },
+                "expression": {
+                    "content": "(product, index) in products :key=\"product.id\"",
+                    "variables": [
+                        {
+                            "ref": "product",
+                            "pos": {
+                                "start": 1341,
+                                "end": 1348
+                            },
+                            "kind": "loop_destructured"
+                        },
+                        {
+                            "ref": "index",
+                            "pos": {
+                                "start": 1350,
+                                "end": 1355
+                            },
+                            "kind": "loop_destructured"
+                        },
+                        {
+                            "ref": "products",
+                            "pos": {
+                                "start": 1360,
+                                "end": 1368
+                            },
+                            "kind": "loop_source"
+                        },
+                        {
+                            "ref": "key",
+                            "pos": {
+                                "start": 1370,
+                                "end": 1373
+                            },
+                            "kind": "loop_source"
+                        }
+                    ],
+                    "pos": {
+                        "start": 1340,
+                        "end": 1386
+                    }
+                },
+                "children": [
+                    {
+                        "type": "Text",
+                        "content": "\n        ",
+                        "pos": {
+                            "start": 1388,
+                            "end": 1397
+                        }
+                    },
+                    {
+                        "type": "Element",
+                        "tag": {
+                            "content": "div",
+                            "position": {
+                                "start": 1398,
+                                "end": 1401
+                            }
+                        },
+                        "pos": {
+                            "start": 1397,
+                            "end": 1427,
+                            "open": {
+                                "start": 1397,
+                                "end": 1402
+                            },
+                            "close": {
+                                "start": 1421,
+                                "end": 1427
+                            }
+                        },
+                        "props": [],
+                        "children": [
+                            {
+                                "type": "Variable",
+                                "pos": {
+                                    "start": 1402,
+                                    "end": 1421,
+                                    "open": {
+                                        "start": 1402,
+                                        "end": 1404
+                                    },
+                                    "close": {
+                                        "start": 1419,
+                                        "end": 1421
+                                    }
+                                },
+                                "expression": {
+                                    "content": "product.title",
+                                    "variables": [
+                                        {
+                                            "ref": "product.title",
+                                            "pos": {
+                                                "start": 1405,
+                                                "end": 1418
+                                            },
+                                            "kind": "loop_variable"
+                                        }
+                                    ],
+                                    "pos": {
+                                        "start": 1405,
+                                        "end": 1418
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Text",
+                        "content": "\n    ",
+                        "pos": {
+                            "start": 1427,
+                            "end": 1432
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 1442,
+                    "end": 1448
+                }
+            },
+            {
+                "type": "Directive",
+                "name": "for",
+                "namePos": {
+                    "start": 1450,
+                    "end": 1453
+                },
+                "pos": {
+                    "start": 1448,
+                    "end": 1559,
+                    "open": {
+                        "start": 1448,
+                        "end": 1506
+                    },
+                    "close": {
+                        "start": 1549,
+                        "end": 1559
+                    }
+                },
+                "expression": {
+                    "content": "user in users :key=\"user.id\" :memo=\"[user.status]\"",
+                    "variables": [
+                        {
+                            "ref": "user",
+                            "pos": {
+                                "start": 1454,
+                                "end": 1458
+                            },
+                            "kind": "loop_destructured"
+                        },
+                        {
+                            "ref": "users",
+                            "pos": {
+                                "start": 1462,
+                                "end": 1467
+                            },
+                            "kind": "loop_source"
+                        },
+                        {
+                            "ref": "key",
+                            "pos": {
+                                "start": 1469,
+                                "end": 1472
+                            },
+                            "kind": "loop_source"
+                        },
+                        {
+                            "ref": "memo",
+                            "pos": {
+                                "start": 1484,
+                                "end": 1488
+                            },
+                            "kind": "loop_source"
+                        }
+                    ],
+                    "pos": {
+                        "start": 1454,
+                        "end": 1504
+                    }
+                },
+                "children": [
+                    {
+                        "type": "Text",
+                        "content": "\n        ",
+                        "pos": {
+                            "start": 1506,
+                            "end": 1515
+                        }
+                    },
+                    {
+                        "type": "Element",
+                        "tag": {
+                            "content": "span",
+                            "position": {
+                                "start": 1516,
+                                "end": 1520
+                            }
+                        },
+                        "pos": {
+                            "start": 1515,
+                            "end": 1544,
+                            "open": {
+                                "start": 1515,
+                                "end": 1521
+                            },
+                            "close": {
+                                "start": 1537,
+                                "end": 1544
+                            }
+                        },
+                        "props": [],
+                        "children": [
+                            {
+                                "type": "Variable",
+                                "pos": {
+                                    "start": 1521,
+                                    "end": 1537,
+                                    "open": {
+                                        "start": 1521,
+                                        "end": 1523
+                                    },
+                                    "close": {
+                                        "start": 1535,
+                                        "end": 1537
+                                    }
+                                },
+                                "expression": {
+                                    "content": "user.email",
+                                    "variables": [
+                                        {
+                                            "ref": "user.email",
+                                            "pos": {
+                                                "start": 1524,
+                                                "end": 1534
+                                            },
+                                            "kind": "loop_variable"
+                                        }
+                                    ],
+                                    "pos": {
+                                        "start": 1524,
+                                        "end": 1534
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Text",
+                        "content": "\n    ",
+                        "pos": {
+                            "start": 1544,
+                            "end": 1549
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 1559,
+                    "end": 1565
+                }
+            },
+            {
+                "type": "Directive",
+                "name": "for",
+                "namePos": {
+                    "start": 1567,
+                    "end": 1570
+                },
+                "pos": {
+                    "start": 1565,
+                    "end": 1659,
+                    "open": {
+                        "start": 1565,
+                        "end": 1610
+                    },
+                    "close": {
+                        "start": 1649,
+                        "end": 1659
+                    }
+                },
+                "expression": {
+                    "content": "task in tasks :memo=\"[task.priority]\"",
+                    "variables": [
+                        {
+                            "ref": "task",
+                            "pos": {
+                                "start": 1571,
+                                "end": 1575
+                            },
+                            "kind": "loop_destructured"
+                        },
+                        {
+                            "ref": "tasks",
+                            "pos": {
+                                "start": 1579,
+                                "end": 1584
+                            },
+                            "kind": "loop_source"
+                        },
+                        {
+                            "ref": "memo",
+                            "pos": {
+                                "start": 1586,
+                                "end": 1590
+                            },
+                            "kind": "loop_source"
+                        }
+                    ],
+                    "pos": {
+                        "start": 1571,
+                        "end": 1608
+                    }
+                },
+                "children": [
+                    {
+                        "type": "Text",
+                        "content": "\n        ",
+                        "pos": {
+                            "start": 1610,
+                            "end": 1619
+                        }
+                    },
+                    {
+                        "type": "Element",
+                        "tag": {
+                            "content": "li",
+                            "position": {
+                                "start": 1620,
+                                "end": 1622
+                            }
+                        },
+                        "pos": {
+                            "start": 1619,
+                            "end": 1644,
+                            "open": {
+                                "start": 1619,
+                                "end": 1623
+                            },
+                            "close": {
+                                "start": 1639,
+                                "end": 1644
+                            }
+                        },
+                        "props": [],
+                        "children": [
+                            {
+                                "type": "Variable",
+                                "pos": {
+                                    "start": 1623,
+                                    "end": 1639,
+                                    "open": {
+                                        "start": 1623,
+                                        "end": 1625
+                                    },
+                                    "close": {
+                                        "start": 1637,
+                                        "end": 1639
+                                    }
+                                },
+                                "expression": {
+                                    "content": "task.label",
+                                    "variables": [
+                                        {
+                                            "ref": "task.label",
+                                            "pos": {
+                                                "start": 1626,
+                                                "end": 1636
+                                            },
+                                            "kind": "loop_variable"
+                                        }
+                                    ],
+                                    "pos": {
+                                        "start": 1626,
+                                        "end": 1636
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Text",
+                        "content": "\n    ",
+                        "pos": {
+                            "start": 1644,
+                            "end": 1649
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 1659,
+                    "end": 1665
+                }
+            },
+            {
+                "type": "Directive",
+                "name": "for",
+                "namePos": {
+                    "start": 1667,
+                    "end": 1670
+                },
+                "pos": {
+                    "start": 1665,
+                    "end": 1862,
+                    "open": {
+                        "start": 1665,
+                        "end": 1695
+                    },
+                    "close": {
+                        "start": 1852,
+                        "end": 1862
+                    }
+                },
+                "expression": {
+                    "content": "category in categories",
+                    "variables": [
+                        {
+                            "ref": "category",
+                            "pos": {
+                                "start": 1671,
+                                "end": 1679
+                            },
+                            "kind": "loop_destructured"
+                        },
+                        {
+                            "ref": "categories",
+                            "pos": {
+                                "start": 1683,
+                                "end": 1693
+                            },
+                            "kind": "loop_source"
+                        }
+                    ],
+                    "pos": {
+                        "start": 1671,
+                        "end": 1693
+                    }
+                },
+                "children": [
+                    {
+                        "type": "Text",
+                        "content": "\n        ",
+                        "pos": {
+                            "start": 1695,
+                            "end": 1704
+                        }
+                    },
+                    {
+                        "type": "Element",
+                        "tag": {
+                            "content": "h2",
+                            "position": {
+                                "start": 1705,
+                                "end": 1707
+                            }
+                        },
+                        "pos": {
+                            "start": 1704,
+                            "end": 1732,
+                            "open": {
+                                "start": 1704,
+                                "end": 1708
+                            },
+                            "close": {
+                                "start": 1727,
+                                "end": 1732
+                            }
+                        },
+                        "props": [],
+                        "children": [
+                            {
+                                "type": "Variable",
+                                "pos": {
+                                    "start": 1708,
+                                    "end": 1727,
+                                    "open": {
+                                        "start": 1708,
+                                        "end": 1710
+                                    },
+                                    "close": {
+                                        "start": 1725,
+                                        "end": 1727
+                                    }
+                                },
+                                "expression": {
+                                    "content": "category.name",
+                                    "variables": [
+                                        {
+                                            "ref": "category.name",
+                                            "pos": {
+                                                "start": 1711,
+                                                "end": 1724
+                                            },
+                                            "kind": "loop_variable"
+                                        }
+                                    ],
+                                    "pos": {
+                                        "start": 1711,
+                                        "end": 1724
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Text",
+                        "content": "\n        ",
+                        "pos": {
+                            "start": 1732,
+                            "end": 1741
+                        }
+                    },
+                    {
+                        "type": "Directive",
+                        "name": "for",
+                        "namePos": {
+                            "start": 1743,
+                            "end": 1746
+                        },
+                        "pos": {
+                            "start": 1741,
+                            "end": 1847,
+                            "open": {
+                                "start": 1741,
+                                "end": 1777
+                            },
+                            "close": {
+                                "start": 1837,
+                                "end": 1847
+                            }
+                        },
+                        "expression": {
+                            "content": "article in category.articles",
+                            "variables": [
+                                {
+                                    "ref": "article",
+                                    "pos": {
+                                        "start": 1747,
+                                        "end": 1754
+                                    },
+                                    "kind": "loop_destructured"
+                                },
+                                {
+                                    "ref": "category.articles",
+                                    "pos": {
+                                        "start": 1758,
+                                        "end": 1775
+                                    },
+                                    "kind": "loop_source"
+                                }
+                            ],
+                            "pos": {
+                                "start": 1747,
+                                "end": 1775
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n            ",
+                                "pos": {
+                                    "start": 1777,
+                                    "end": 1790
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "article",
+                                    "position": {
+                                        "start": 1791,
+                                        "end": 1798
+                                    }
+                                },
+                                "pos": {
+                                    "start": 1790,
+                                    "end": 1828,
+                                    "open": {
+                                        "start": 1790,
+                                        "end": 1799
+                                    },
+                                    "close": {
+                                        "start": 1818,
+                                        "end": 1828
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Variable",
+                                        "pos": {
+                                            "start": 1799,
+                                            "end": 1818,
+                                            "open": {
+                                                "start": 1799,
+                                                "end": 1801
+                                            },
+                                            "close": {
+                                                "start": 1816,
+                                                "end": 1818
+                                            }
+                                        },
+                                        "expression": {
+                                            "content": "article.title",
+                                            "variables": [
+                                                {
+                                                    "ref": "article.title",
+                                                    "pos": {
+                                                        "start": 1802,
+                                                        "end": 1815
+                                                    },
+                                                    "kind": "loop_variable"
+                                                }
+                                            ],
+                                            "pos": {
+                                                "start": 1802,
+                                                "end": 1815
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 1828,
+                                    "end": 1837
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Text",
+                        "content": "\n    ",
+                        "pos": {
+                            "start": 1847,
+                            "end": 1852
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 1862,
+                    "end": 1868
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 1868,
+                    "end": 2053,
+                    "open": {
+                        "start": 1868,
+                        "end": 1880
+                    },
+                    "close": {
+                        "start": 2042,
+                        "end": 2053
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "mixed",
+                            "variables": [
+                                {
+                                    "ref": "mixed",
+                                    "pos": {
+                                        "start": 1873,
+                                        "end": 1878
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 1873,
+                                "end": 1878
+                            }
+                        },
+                        "namePos": {
+                            "start": 1870,
+                            "end": 1872
+                        },
+                        "pos": {
+                            "start": 1868,
+                            "end": 1880,
+                            "open": {
+                                "start": 1868,
+                                "end": 1880
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 1880,
+                                    "end": 1885
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "section",
+                                    "position": {
+                                        "start": 1886,
+                                        "end": 1893
+                                    }
+                                },
+                                "pos": {
+                                    "start": 1885,
+                                    "end": 1918,
+                                    "open": {
+                                        "start": 1885,
+                                        "end": 1894
+                                    },
+                                    "close": {
+                                        "start": 1908,
+                                        "end": 1918
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Section header",
+                                        "pos": {
+                                            "start": 1894,
+                                            "end": 1908
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 1918,
+                                    "end": 1927
+                                }
+                            },
+                            {
+                                "type": "Directive",
+                                "name": "for",
+                                "namePos": {
+                                    "start": 1929,
+                                    "end": 1932
+                                },
+                                "pos": {
+                                    "start": 1927,
+                                    "end": 1978,
+                                    "open": {
+                                        "start": 1927,
+                                        "end": 1946
+                                    },
+                                    "close": {
+                                        "start": 1968,
+                                        "end": 1978
+                                    }
+                                },
+                                "expression": {
+                                    "content": "tag in tags",
+                                    "variables": [
+                                        {
+                                            "ref": "tag",
+                                            "pos": {
+                                                "start": 1933,
+                                                "end": 1936
+                                            },
+                                            "kind": "loop_destructured"
+                                        },
+                                        {
+                                            "ref": "tags",
+                                            "pos": {
+                                                "start": 1940,
+                                                "end": 1944
+                                            },
+                                            "kind": "loop_source"
+                                        }
+                                    ],
+                                    "pos": {
+                                        "start": 1933,
+                                        "end": 1944
+                                    }
+                                },
+                                "children": [
+                                    {
+                                        "type": "Element",
+                                        "tag": {
+                                            "content": "span",
+                                            "position": {
+                                                "start": 1947,
+                                                "end": 1951
+                                            }
+                                        },
+                                        "pos": {
+                                            "start": 1946,
+                                            "end": 1968,
+                                            "open": {
+                                                "start": 1946,
+                                                "end": 1952
+                                            },
+                                            "close": {
+                                                "start": 1961,
+                                                "end": 1968
+                                            }
+                                        },
+                                        "props": [],
+                                        "children": [
+                                            {
+                                                "type": "Variable",
+                                                "pos": {
+                                                    "start": 1952,
+                                                    "end": 1961,
+                                                    "open": {
+                                                        "start": 1952,
+                                                        "end": 1954
+                                                    },
+                                                    "close": {
+                                                        "start": 1959,
+                                                        "end": 1961
+                                                    }
+                                                },
+                                                "expression": {
+                                                    "content": "tag",
+                                                    "variables": [
+                                                        {
+                                                            "ref": "tag",
+                                                            "pos": {
+                                                                "start": 1955,
+                                                                "end": 1958
+                                                            },
+                                                            "kind": "loop_variable"
+                                                        }
+                                                    ],
+                                                    "pos": {
+                                                        "start": 1955,
+                                                        "end": 1958
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 1978,
+                                    "end": 1983
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "else",
+                        "namePos": {
+                            "start": 1986,
+                            "end": 1990
+                        },
+                        "pos": {
+                            "start": 1983,
+                            "end": 1993,
+                            "open": {
+                                "start": 1983,
+                                "end": 1993
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 1993,
+                                    "end": 2002
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "span",
+                                    "position": {
+                                        "start": 2003,
+                                        "end": 2007
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2002,
+                                    "end": 2037,
+                                    "open": {
+                                        "start": 2002,
+                                        "end": 2019
+                                    },
+                                    "close": {
+                                        "start": 2030,
+                                        "end": 2037
+                                    }
+                                },
+                                "props": [
+                                    {
+                                        "type": "Attribute",
+                                        "name": {
+                                            "content": "v-if",
+                                            "position": {
+                                                "start": 2008,
+                                                "end": 2012
+                                            }
+                                        },
+                                        "value": {
+                                            "content": "alt",
+                                            "position": {
+                                                "start": 2014,
+                                                "end": 2017
+                                            }
+                                        }
+                                    }
+                                ],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Alternative",
+                                        "pos": {
+                                            "start": 2019,
+                                            "end": 2030
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 2037,
+                                    "end": 2042
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 2053,
+                    "end": 2059
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 2059,
+                    "end": 2206,
+                    "open": {
+                        "start": 2059,
+                        "end": 2072
+                    },
+                    "close": {
+                        "start": 2197,
+                        "end": 2206
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "detail",
+                            "variables": [
+                                {
+                                    "ref": "detail",
+                                    "pos": {
+                                        "start": 2064,
+                                        "end": 2070
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 2064,
+                                "end": 2070
+                            }
+                        },
+                        "namePos": {
+                            "start": 2061,
+                            "end": 2063
+                        },
+                        "pos": {
+                            "start": 2059,
+                            "end": 2072,
+                            "open": {
+                                "start": 2059,
+                                "end": 2072
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 2072,
+                                    "end": 2081
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2082,
+                                        "end": 2083
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2081,
+                                    "end": 2099,
+                                    "open": {
+                                        "start": 2081,
+                                        "end": 2084
+                                    },
+                                    "close": {
+                                        "start": 2095,
+                                        "end": 2099
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Detail view",
+                                        "pos": {
+                                            "start": 2084,
+                                            "end": 2095
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 2099,
+                                    "end": 2108
+                                }
+                            },
+                            {
+                                "type": "Directive",
+                                "name": "for",
+                                "namePos": {
+                                    "start": 2110,
+                                    "end": 2113
+                                },
+                                "pos": {
+                                    "start": 2108,
+                                    "end": 2192,
+                                    "open": {
+                                        "start": 2108,
+                                        "end": 2131
+                                    },
+                                    "close": {
+                                        "start": 2182,
+                                        "end": 2192
+                                    }
+                                },
+                                "expression": {
+                                    "content": "image in images",
+                                    "variables": [
+                                        {
+                                            "ref": "image",
+                                            "pos": {
+                                                "start": 2114,
+                                                "end": 2119
+                                            },
+                                            "kind": "loop_destructured"
+                                        },
+                                        {
+                                            "ref": "images",
+                                            "pos": {
+                                                "start": 2123,
+                                                "end": 2129
+                                            },
+                                            "kind": "loop_source"
+                                        }
+                                    ],
+                                    "pos": {
+                                        "start": 2114,
+                                        "end": 2129
+                                    }
+                                },
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "\n            ",
+                                        "pos": {
+                                            "start": 2131,
+                                            "end": 2144
+                                        }
+                                    },
+                                    {
+                                        "type": "Element",
+                                        "tag": {
+                                            "content": "img",
+                                            "position": {
+                                                "start": 2145,
+                                                "end": 2148
+                                            }
+                                        },
+                                        "pos": {
+                                            "start": 2144,
+                                            "end": 2173,
+                                            "open": {
+                                                "start": 2144,
+                                                "end": 2173
+                                            }
+                                        },
+                                        "props": [
+                                            {
+                                                "type": "Attribute",
+                                                "name": {
+                                                    "content": "src",
+                                                    "position": {
+                                                        "start": 2149,
+                                                        "end": 2152
+                                                    }
+                                                },
+                                                "value": {
+                                                    "content": "{{ image.src }}",
+                                                    "position": {
+                                                        "start": 2154,
+                                                        "end": 2169
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "children": [],
+                                        "selfClosing": true
+                                    },
+                                    {
+                                        "type": "Text",
+                                        "content": "\n        ",
+                                        "pos": {
+                                            "start": 2173,
+                                            "end": 2182
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 2192,
+                                    "end": 2197
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 2206,
+                    "end": 2212
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 2212,
+                    "end": 2288,
+                    "open": {
+                        "start": 2212,
+                        "end": 2226
+                    },
+                    "close": {
+                        "start": 2279,
+                        "end": 2288
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "summary",
+                            "variables": [
+                                {
+                                    "ref": "summary",
+                                    "pos": {
+                                        "start": 2217,
+                                        "end": 2224
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 2217,
+                                "end": 2224
+                            }
+                        },
+                        "namePos": {
+                            "start": 2214,
+                            "end": 2216
+                        },
+                        "pos": {
+                            "start": 2212,
+                            "end": 2226,
+                            "open": {
+                                "start": 2212,
+                                "end": 2226
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 2226,
+                                    "end": 2235
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2236,
+                                        "end": 2237
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2235,
+                                    "end": 2249,
+                                    "open": {
+                                        "start": 2235,
+                                        "end": 2238
+                                    },
+                                    "close": {
+                                        "start": 2245,
+                                        "end": 2249
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Summary",
+                                        "pos": {
+                                            "start": 2238,
+                                            "end": 2245
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 2249,
+                                    "end": 2258
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2259,
+                                        "end": 2260
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2258,
+                                    "end": 2274,
+                                    "open": {
+                                        "start": 2258,
+                                        "end": 2261
+                                    },
+                                    "close": {
+                                        "start": 2270,
+                                        "end": 2274
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "More info",
+                                        "pos": {
+                                            "start": 2261,
+                                            "end": 2270
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 2274,
+                                    "end": 2279
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 2288,
+                    "end": 2294
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 2294,
+                    "end": 2384,
+                    "open": {
+                        "start": 2294,
+                        "end": 2307
+                    },
+                    "close": {
+                        "start": 2375,
+                        "end": 2384
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "status",
+                            "variables": [
+                                {
+                                    "ref": "status",
+                                    "pos": {
+                                        "start": 2299,
+                                        "end": 2305
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 2299,
+                                "end": 2305
+                            }
+                        },
+                        "namePos": {
+                            "start": 2296,
+                            "end": 2298
+                        },
+                        "pos": {
+                            "start": 2294,
+                            "end": 2307,
+                            "open": {
+                                "start": 2294,
+                                "end": 2307
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 2307,
+                                    "end": 2316
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2317,
+                                        "end": 2318
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2316,
+                                    "end": 2329,
+                                    "open": {
+                                        "start": 2316,
+                                        "end": 2319
+                                    },
+                                    "close": {
+                                        "start": 2325,
+                                        "end": 2329
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Online",
+                                        "pos": {
+                                            "start": 2319,
+                                            "end": 2325
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 2329,
+                                    "end": 2338
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "else",
+                        "namePos": {
+                            "start": 2340,
+                            "end": 2344
+                        },
+                        "pos": {
+                            "start": 2338,
+                            "end": 2347,
+                            "open": {
+                                "start": 2338,
+                                "end": 2347
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 2347,
+                                    "end": 2356
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2357,
+                                        "end": 2358
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2356,
+                                    "end": 2370,
+                                    "open": {
+                                        "start": 2356,
+                                        "end": 2359
+                                    },
+                                    "close": {
+                                        "start": 2366,
+                                        "end": 2370
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Offline",
+                                        "pos": {
+                                            "start": 2359,
+                                            "end": 2366
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 2370,
+                                    "end": 2375
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 2384,
+                    "end": 2390
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 2390,
+                    "end": 2549,
+                    "open": {
+                        "start": 2390,
+                        "end": 2405
+                    },
+                    "close": {
+                        "start": 2540,
+                        "end": 2549
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "feature",
+                            "variables": [
+                                {
+                                    "ref": "feature",
+                                    "pos": {
+                                        "start": 2396,
+                                        "end": 2403
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 2396,
+                                "end": 2403
+                            }
+                        },
+                        "namePos": {
+                            "start": 2393,
+                            "end": 2395
+                        },
+                        "pos": {
+                            "start": 2390,
+                            "end": 2405,
+                            "open": {
+                                "start": 2390,
+                                "end": 2405
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 2405,
+                                    "end": 2414
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2415,
+                                        "end": 2416
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2414,
+                                    "end": 2432,
+                                    "open": {
+                                        "start": 2414,
+                                        "end": 2417
+                                    },
+                                    "close": {
+                                        "start": 2428,
+                                        "end": 2432
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "New feature",
+                                        "pos": {
+                                            "start": 2417,
+                                            "end": 2428
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 2432,
+                                    "end": 2441
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2442,
+                                        "end": 2443
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2441,
+                                    "end": 2459,
+                                    "open": {
+                                        "start": 2441,
+                                        "end": 2444
+                                    },
+                                    "close": {
+                                        "start": 2455,
+                                        "end": 2459
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Description",
+                                        "pos": {
+                                            "start": 2444,
+                                            "end": 2455
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 2459,
+                                    "end": 2468
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "else",
+                        "namePos": {
+                            "start": 2470,
+                            "end": 2474
+                        },
+                        "pos": {
+                            "start": 2468,
+                            "end": 2477,
+                            "open": {
+                                "start": 2468,
+                                "end": 2477
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 2477,
+                                    "end": 2486
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2487,
+                                        "end": 2488
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2486,
+                                    "end": 2504,
+                                    "open": {
+                                        "start": 2486,
+                                        "end": 2489
+                                    },
+                                    "close": {
+                                        "start": 2500,
+                                        "end": 2504
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Legacy mode",
+                                        "pos": {
+                                            "start": 2489,
+                                            "end": 2500
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 2504,
+                                    "end": 2513
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2514,
+                                        "end": 2515
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2513,
+                                    "end": 2535,
+                                    "open": {
+                                        "start": 2513,
+                                        "end": 2516
+                                    },
+                                    "close": {
+                                        "start": 2531,
+                                        "end": 2535
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Old description",
+                                        "pos": {
+                                            "start": 2516,
+                                            "end": 2531
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 2535,
+                                    "end": 2540
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 2549,
+                    "end": 2555
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 2555,
+                    "end": 2704,
+                    "open": {
+                        "start": 2555,
+                        "end": 2566
+                    },
+                    "close": {
+                        "start": 2695,
+                        "end": 2704
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "type",
+                            "variables": [
+                                {
+                                    "ref": "type",
+                                    "pos": {
+                                        "start": 2560,
+                                        "end": 2564
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 2560,
+                                "end": 2564
+                            }
+                        },
+                        "namePos": {
+                            "start": 2557,
+                            "end": 2559
+                        },
+                        "pos": {
+                            "start": 2555,
+                            "end": 2566,
+                            "open": {
+                                "start": 2555,
+                                "end": 2566
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n            ",
+                                "pos": {
+                                    "start": 2566,
+                                    "end": 2579
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2580,
+                                        "end": 2581
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2579,
+                                    "end": 2592,
+                                    "open": {
+                                        "start": 2579,
+                                        "end": 2582
+                                    },
+                                    "close": {
+                                        "start": 2588,
+                                        "end": 2592
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Type A",
+                                        "pos": {
+                                            "start": 2582,
+                                            "end": 2588
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 2592,
+                                    "end": 2601
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "else-if",
+                        "expression": {
+                            "content": "variant",
+                            "variables": [
+                                {
+                                    "ref": "variant",
+                                    "pos": {
+                                        "start": 2611,
+                                        "end": 2618
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 2611,
+                                "end": 2618
+                            }
+                        },
+                        "namePos": {
+                            "start": 2603,
+                            "end": 2610
+                        },
+                        "pos": {
+                            "start": 2601,
+                            "end": 2620,
+                            "open": {
+                                "start": 2601,
+                                "end": 2620
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n            ",
+                                "pos": {
+                                    "start": 2620,
+                                    "end": 2633
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2634,
+                                        "end": 2635
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2633,
+                                    "end": 2646,
+                                    "open": {
+                                        "start": 2633,
+                                        "end": 2636
+                                    },
+                                    "close": {
+                                        "start": 2642,
+                                        "end": 2646
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Type B",
+                                        "pos": {
+                                            "start": 2636,
+                                            "end": 2642
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 2646,
+                                    "end": 2655
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "else",
+                        "namePos": {
+                            "start": 2657,
+                            "end": 2661
+                        },
+                        "pos": {
+                            "start": 2655,
+                            "end": 2664,
+                            "open": {
+                                "start": 2655,
+                                "end": 2664
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n            ",
+                                "pos": {
+                                    "start": 2664,
+                                    "end": 2677
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2678,
+                                        "end": 2679
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2677,
+                                    "end": 2690,
+                                    "open": {
+                                        "start": 2677,
+                                        "end": 2680
+                                    },
+                                    "close": {
+                                        "start": 2686,
+                                        "end": 2690
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Type C",
+                                        "pos": {
+                                            "start": 2680,
+                                            "end": 2686
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 2690,
+                                    "end": 2695
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 2704,
+                    "end": 2710
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 2710,
+                    "end": 2859,
+                    "open": {
+                        "start": 2710,
+                        "end": 2721
+                    },
+                    "close": {
+                        "start": 2850,
+                        "end": 2859
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "mode",
+                            "variables": [
+                                {
+                                    "ref": "mode",
+                                    "pos": {
+                                        "start": 2715,
+                                        "end": 2719
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 2715,
+                                "end": 2719
+                            }
+                        },
+                        "namePos": {
+                            "start": 2712,
+                            "end": 2714
+                        },
+                        "pos": {
+                            "start": 2710,
+                            "end": 2721,
+                            "open": {
+                                "start": 2710,
+                                "end": 2721
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n            ",
+                                "pos": {
+                                    "start": 2721,
+                                    "end": 2734
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2735,
+                                        "end": 2736
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2734,
+                                    "end": 2745,
+                                    "open": {
+                                        "start": 2734,
+                                        "end": 2737
+                                    },
+                                    "close": {
+                                        "start": 2741,
+                                        "end": 2745
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Edit",
+                                        "pos": {
+                                            "start": 2737,
+                                            "end": 2741
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n            ",
+                                "pos": {
+                                    "start": 2745,
+                                    "end": 2758
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2759,
+                                        "end": 2760
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2758,
+                                    "end": 2769,
+                                    "open": {
+                                        "start": 2758,
+                                        "end": 2761
+                                    },
+                                    "close": {
+                                        "start": 2765,
+                                        "end": 2769
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Form",
+                                        "pos": {
+                                            "start": 2761,
+                                            "end": 2765
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n        ",
+                                "pos": {
+                                    "start": 2769,
+                                    "end": 2778
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "else-if",
+                        "expression": {
+                            "content": "view",
+                            "variables": [
+                                {
+                                    "ref": "view",
+                                    "pos": {
+                                        "start": 2788,
+                                        "end": 2792
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 2788,
+                                "end": 2792
+                            }
+                        },
+                        "namePos": {
+                            "start": 2780,
+                            "end": 2787
+                        },
+                        "pos": {
+                            "start": 2778,
+                            "end": 2794,
+                            "open": {
+                                "start": 2778,
+                                "end": 2794
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Text",
+                                "content": "\n            ",
+                                "pos": {
+                                    "start": 2794,
+                                    "end": 2807
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2808,
+                                        "end": 2809
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2807,
+                                    "end": 2818,
+                                    "open": {
+                                        "start": 2807,
+                                        "end": 2810
+                                    },
+                                    "close": {
+                                        "start": 2814,
+                                        "end": 2818
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Read",
+                                        "pos": {
+                                            "start": 2810,
+                                            "end": 2814
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n            ",
+                                "pos": {
+                                    "start": 2818,
+                                    "end": 2831
+                                }
+                            },
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "p",
+                                    "position": {
+                                        "start": 2832,
+                                        "end": 2833
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2831,
+                                    "end": 2845,
+                                    "open": {
+                                        "start": 2831,
+                                        "end": 2834
+                                    },
+                                    "close": {
+                                        "start": 2841,
+                                        "end": 2845
+                                    }
+                                },
+                                "props": [],
+                                "children": [
+                                    {
+                                        "type": "Text",
+                                        "content": "Display",
+                                        "pos": {
+                                            "start": 2834,
+                                            "end": 2841
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Text",
+                                "content": "\n    ",
+                                "pos": {
+                                    "start": 2845,
+                                    "end": 2850
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n\n    ",
+                "pos": {
+                    "start": 2859,
+                    "end": 2865
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 2865,
+                    "end": 2896,
+                    "open": {
+                        "start": 2865,
+                        "end": 2881
+                    },
+                    "close": {
+                        "start": 2887,
+                        "end": 2896
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "breakTest",
+                            "variables": [
+                                {
+                                    "ref": "breakTest",
+                                    "pos": {
+                                        "start": 2870,
+                                        "end": 2879
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 2870,
+                                "end": 2879
+                            }
+                        },
+                        "namePos": {
+                            "start": 2867,
+                            "end": 2869
+                        },
+                        "pos": {
+                            "start": 2865,
+                            "end": 2881,
+                            "open": {
+                                "start": 2865,
+                                "end": 2881
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "br",
+                                    "position": {
+                                        "start": 2882,
+                                        "end": 2884
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2881,
+                                    "end": 2887,
+                                    "open": {
+                                        "start": 2881,
+                                        "end": 2887
+                                    }
+                                },
+                                "props": [],
+                                "children": [],
+                                "selfClosing": true
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n    ",
+                "pos": {
+                    "start": 2896,
+                    "end": 2901
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 2901,
+                    "end": 2950,
+                    "open": {
+                        "start": 2901,
+                        "end": 2919
+                    },
+                    "close": {
+                        "start": 2941,
+                        "end": 2950
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "selfClosing",
+                            "variables": [
+                                {
+                                    "ref": "selfClosing",
+                                    "pos": {
+                                        "start": 2906,
+                                        "end": 2917
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 2906,
+                                "end": 2917
+                            }
+                        },
+                        "namePos": {
+                            "start": 2903,
+                            "end": 2905
+                        },
+                        "pos": {
+                            "start": 2901,
+                            "end": 2919,
+                            "open": {
+                                "start": 2901,
+                                "end": 2919
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Element",
+                                "tag": {
+                                    "content": "img",
+                                    "position": {
+                                        "start": 2920,
+                                        "end": 2923
+                                    }
+                                },
+                                "pos": {
+                                    "start": 2919,
+                                    "end": 2941,
+                                    "open": {
+                                        "start": 2919,
+                                        "end": 2941
+                                    }
+                                },
+                                "props": [
+                                    {
+                                        "type": "Attribute",
+                                        "name": {
+                                            "content": "src",
+                                            "position": {
+                                                "start": 2924,
+                                                "end": 2927
+                                            }
+                                        },
+                                        "value": {
+                                            "content": "logo.png",
+                                            "position": {
+                                                "start": 2929,
+                                                "end": 2937
+                                            }
+                                        }
+                                    }
+                                ],
+                                "children": [],
+                                "selfClosing": true
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n    ",
+                "pos": {
+                    "start": 2950,
+                    "end": 2955
+                }
+            },
+            {
+                "type": "IfDirective",
+                "pos": {
+                    "start": 2955,
+                    "end": 3005,
+                    "open": {
+                        "start": 2955,
+                        "end": 2973
+                    },
+                    "close": {
+                        "start": 2996,
+                        "end": 3005
+                    }
+                },
+                "branches": [
+                    {
+                        "type": "if",
+                        "expression": {
+                            "content": "commentTest",
+                            "variables": [
+                                {
+                                    "ref": "commentTest",
+                                    "pos": {
+                                        "start": 2960,
+                                        "end": 2971
+                                    },
+                                    "kind": "standalone"
+                                }
+                            ],
+                            "pos": {
+                                "start": 2960,
+                                "end": 2971
+                            }
+                        },
+                        "namePos": {
+                            "start": 2957,
+                            "end": 2959
+                        },
+                        "pos": {
+                            "start": 2955,
+                            "end": 2973,
+                            "open": {
+                                "start": 2955,
+                                "end": 2973
+                            }
+                        },
+                        "children": [
+                            {
+                                "type": "Comment",
+                                "content": " debug info ",
+                                "pos": {
+                                    "start": 2973,
+                                    "end": 2992,
+                                    "open": {
+                                        "start": 2973,
+                                        "end": 2977
+                                    },
+                                    "close": {
+                                        "start": 2989,
+                                        "end": 2992
+                                    }
+                                }
+                            },
+                            {
+                                "type": "Text",
+                                "content": "Text",
+                                "pos": {
+                                    "start": 2992,
+                                    "end": 2996
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "Text",
+                "content": "\n",
+                "pos": {
+                    "start": 3005,
+                    "end": 3006
+                }
+            }
+        ]
+    },
+    {
+        "type": "Text",
+        "content": "\n",
+        "pos": {
+            "start": 3017,
+            "end": 3018
+        }
+    }
+]

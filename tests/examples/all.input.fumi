@@ -1,0 +1,147 @@
+
+<template>
+    <!-- Main content area -->
+    <h1>Welcome</h1>
+
+    {% cloak %}
+        <p>Loading indicator</p>
+    {% endcloak %}
+
+    {% once %}
+        <p>Rendered once</p>
+    {% endonce %}
+
+    {% pre %}
+        <p>{{ raw }}</p>
+    {% endpre %}
+
+    {% if isLoading %}
+        <span>Loading...</span>
+    {% endif %}
+
+    {% if user && user.isActive %}
+        <div>Active user</div>
+    {% else %}
+        <div>Guest</div>
+    {% endif %}
+
+    {% if !hasPermission %}
+        <span>Access denied</span>
+    {% else-if role === 'admin' %}
+        <span>Admin panel</span>
+    {% else %}
+        <span>Standard view</span>
+    {% endif %}
+
+    {% if count > 10 %}
+        <p>Many items</p>
+    {% endif %}
+
+    {% if data ?? fallback %}
+        <p>With fallback</p>
+    {% endif %}
+
+    {% if emptyFirst %}
+        {% else %}
+        <p>Only fallback</p>
+    {% endif %}
+
+    {% if emptySecond %}
+        <p>Only content</p>
+        {% else %}
+    {% endif %}
+
+    {% if outer %}
+        {% if inner %}
+            <p>Nested condition</p>
+        {% endif %}
+    {% endif %}
+
+    {% if deepA %}
+        {% if deepB %}
+            {% if deepC %}
+            <p>Deeply nested</p>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    {% show isVisible %}
+        <p>Conditionally visible</p>
+    {% endshow %}
+
+    {% for item in items %}
+        <div>{{ item.name }}</div>
+    {% endfor %}
+
+    {% for (product, index) in products :key="product.id" %}
+        <div>{{ product.title }}</div>
+    {% endfor %}
+
+    {% for user in users :key="user.id" :memo="[user.status]" %}
+        <span>{{ user.email }}</span>
+    {% endfor %}
+
+    {% for task in tasks :memo="[task.priority]" %}
+        <li>{{ task.label }}</li>
+    {% endfor %}
+
+    {% for category in categories %}
+        <h2>{{ category.name }}</h2>
+        {% for article in category.articles %}
+            <article>{{ article.title }}</article>
+        {% endfor %}
+    {% endfor %}
+
+    {% if mixed %}
+    <section>Section header</section>
+        {% for tag in tags %}<span>{{ tag }}</span>{% endfor %}
+    {%  else  %}
+        <span v-if="alt">Alternative</span>
+    {%  endif  %}
+
+    {% if detail %}
+        <p>Detail view</p>
+        {% for image in images %}
+            <img src="{{ image.src }}" />
+        {% endfor %}
+    {% endif %}
+
+    {% if summary %}
+        <p>Summary</p>
+        <p>More info</p>
+    {% endif %}
+
+    {% if status %}
+        <p>Online</p>
+        {% else  %}
+        <p>Offline</p>
+    {% endif %}
+
+    {%  if feature %}
+        <p>New feature</p>
+        <p>Description</p>
+        {% else  %}
+        <p>Legacy mode</p>
+        <p>Old description</p>
+    {% endif %}
+
+    {% if type %}
+            <p>Type A</p>
+        {% else-if variant %}
+            <p>Type B</p>
+        {% else  %}
+            <p>Type C</p>
+    {% endif %}
+
+    {% if mode %}
+            <p>Edit</p>
+            <p>Form</p>
+        {% else-if view %}
+            <p>Read</p>
+            <p>Display</p>
+    {% endif %}
+
+    {% if breakTest %}<br />{% endif %}
+    {% if selfClosing %}<img src="logo.png" />{% endif %}
+    {% if commentTest %}<!-- debug info -->Text{% endif %}
+</template>
