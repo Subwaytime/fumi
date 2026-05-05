@@ -29,6 +29,9 @@
     "bundle": "tsdown"
   },
   "devDependencies": {
+    "@types/bun": "catalog:",
+    "@volar/source-map": "^2.4.28",
+    "@vue/compiler-dom": "^3.5.33",
     "tsdown": "catalog:",
     "vitest": "^3.0.0"
   }
