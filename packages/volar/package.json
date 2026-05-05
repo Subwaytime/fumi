@@ -11,10 +11,10 @@
     "@fumi/core": "workspace:*"
   },
   "devDependencies": {
-    "@volar/source-map": "^2.4.0",
-    "@vue/compiler-dom": "^3.5.31",
+    "@volar/source-map": "^catalog:",
+    "@vue/compiler-dom": "^catalog:",
     "@vue/language-core": "^3.2.6",
-    "@types/bun": "latest",
+    "@types/bun": "catalog:",
     "type-fest": "^5.5.0"
   },
   "peerDependencies": {
