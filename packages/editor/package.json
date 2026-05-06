@@ -1,0 +1,20 @@
+{
+  "name": "fumi-grammar",
+  "publisher": "fumi",
+  "displayName": "Fumi Grammar",
+  "description": "TextMate grammar for Fumi template language",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.0.0"
+  },
+  "categories": ["Programming Languages"],
+  "contributes": {
+    "grammars": [
+      {
+        "scopeName": "text.html.fumi",
+        "path": "./syntaxes/fumi.tmLanguage.json",
+        "injectTo": ["text.html.vue"]
+      }
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vscode-textmate/main/tmlanguage.schema.json",
+  "scopeName": "text.html.fumi",
+  "injectionSelector": "L:text.html.vue",
+  "patterns": [
+    { "include": "#fumi-directive" }
+  ],
+  "repository": {
+    "fumi-directive": {
+      "begin": "\\{%",
+      "end": "%\\}",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.directive.begin.fumi" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.directive.end.fumi" }
+      },
+      "patterns": [
+        {
+          "comment": "All directive keywords - if, for, show, memo, etc.",
+          "match": "\\b(if|else|else-if|for|show|cloak|once|pre|text|html|memo|key|endif|endfor|endshow|endcloak|endonce|endpre|endtext|endhtml|endmemo)\\b",
+          "name": "keyword.control.directive.fumi"
+        },
+        {
+          "comment": "Shorthand extras :key, :memo - copy Vue's exact scopes",
+          "match": "(:)(key|memo)",
+          "captures": {
+            "1": { "name": "punctuation.attribute-shorthand.bind.html.vue" },
+            "2": { "name": "entity.other.attribute-name.html.vue" }
+          }
+        },
+        {
+          "comment": "Regular extras without colon - key, memo",
+          "match": "\\b(key|memo)\\b(?=\\s*=)",
+          "name": "entity.other.attribute-name.fumi"
+        },
+        {
+          "comment": "The 'in' keyword in for loops",
+          "match": "\\bin\\b",
+          "name": "keyword.control.fumi"
+        },
+        {
+          "comment": "Attribute expression values - embed TypeScript for JS/TS highlighting",
+          "begin": "(=)\\s*([\"'`])",
+          "beginCaptures": {
+            "1": { "name": "punctuation.separator.key-value.html.vue" },
+            "2": { "name": "punctuation.definition.string.begin.html.vue" }
+          },
+          "end": "\\2",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.html.vue" }
+          },
+          "contentName": "source.ts.embedded.html.vue",
+          "patterns": [
+            { "include": "source.ts#expression" }
+          ]
+        }
+      ]
+    }
+  }
+}
