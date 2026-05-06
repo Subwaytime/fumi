@@ -1,4 +1,4 @@
-## Fumi
+## Fumi (Japenese word for `Flavor` - 風味)
 
 A lightweight, intuitive template language for Vue 3. Write cleaner templates with `{%` blocks that compile to standard Vue directives — zero runtime overhead, full IDE support.
 
