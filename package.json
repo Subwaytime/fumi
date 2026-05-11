@@ -36,7 +36,7 @@
       "types": "./dist/volar.d.ts"
     },
     "./core": {
-      "import": "./dist/core.ts",
+      "import": "./dist/core.js",
       "types": "./dist/core.d.ts"
     }
   },
