@@ -43,15 +43,15 @@
   "files": [
 		"./dist"
 	],
-  "workspaces": [
-    "packages/*"
-  ],
-  "catalog": {
-    "@types/bun": "latest",
-    "tsdown": "^0.21.7",
-    "type-fest": "^5.5.0",
-    "@volar/source-map": "^2.4.28",
-    "@vue/compiler-dom": "^3.5.33"
+  "workspaces": {
+    "packages": ["packages/*"],
+    "catalog": {
+      "@types/bun": "latest",
+      "tsdown": "^0.21.7",
+      "type-fest": "^5.5.0",
+      "@volar/source-map": "^2.4.28",
+      "@vue/compiler-dom": "^3.5.33"
+    }
   },
   "devDependencies": {
     "@types/bun": "catalog:",
