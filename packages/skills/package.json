@@ -1,0 +1,13 @@
+{
+  "name": "@fumi/skills",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Fumi template language — opencode skill for AI-assisted development",
+  "files": [
+    "SKILL.md"
+  ],
+  "exports": {
+    ".": "./SKILL.md"
+  },
+  "packageManager": "bun@1.3.13"
+}
