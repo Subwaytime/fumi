@@ -3,28 +3,28 @@
   "version": "0.0.2",
   "private": false,
   "description": "A lightweight, intuitive template language for Vue 3.",
-	"keywords": [
-		"vite",
-		"vue",
-		"vue3",
+  "keywords": [
+    "vite",
+    "vue",
+    "vue3",
     "fumi",
     "template",
     "templating language",
     "syntax"
-	],
+  ],
   "homepage": "https://github.com/subwaytime/fumi#readme",
-	"bugs": "https://github.com/subwaytime/fumi/issues",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/subwaytime/fumi"
-	},
-	"license": "MIT",
-	"author": "Subwaytime <leon.l@nophase.de>",
+  "bugs": "https://github.com/subwaytime/fumi/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/subwaytime/fumi.git"
+  },
+  "license": "MIT",
+  "author": "Subwaytime <leon.l@nophase.de>",
   "scripts": {
     "test": "vitest run",
     "bundle": "bunx --bun tsdown",
     "prepublishOnly": "bun run bundle",
-		"release": "bunx git-ensure -a && bunx bumpp --commit --tag --push && bun publish --access public"
+    "release": "bunx git-ensure -a && bunx bumpp --commit --tag --push && bun publish --access public"
   },
   "exports": {
     "./vite": {
@@ -42,12 +42,14 @@
     "./skill": "./packages/skills/SKILL.md"
   },
   "files": [
-		"./dist",
-		"./packages/skills",
-		"AGENTS.md"
-	],
+    "./dist",
+    "./packages/skills",
+    "AGENTS.md"
+  ],
   "workspaces": {
-    "packages": ["packages/*"],
+    "packages": [
+      "packages/*"
+    ],
     "catalog": {
       "@types/bun": "latest",
       "tsdown": "^0.21.7",
