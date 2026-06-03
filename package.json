@@ -1,6 +1,6 @@
 {
   "name": "@subwaytime/fumi",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "description": "A lightweight, intuitive template language for Vue 3.",
 	"keywords": [
